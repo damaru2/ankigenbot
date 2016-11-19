@@ -11,7 +11,7 @@ start)
 echo "Starting ankigen_bot"
 echo $ANKIGEN_PID
 if [ -z "$ANKIGEN_PID" ]; then
-sudo bash -c 'nohup setsid python3 -u src/ankigen_bot.py </dev/null >> log/active_server.log  2>&1 &'
+sudo bash -c 'nohup setsid python3 -u src/ankigen_bot.py </dev/null >> log/ankigen.log  2>&1 &'
 echo "client is now in the house"
 else
 echo "client was already in the house"

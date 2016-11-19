@@ -1,12 +1,12 @@
-[INFO  - 2016-11-19T00:06:19.582Z] GhostDriver - Main - running on port 58964
-[INFO  - 2016-11-19T00:06:19.919Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":false,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Unknown; Linux) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2016-11-19T00:06:19.919Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.customHeaders:  - {}
-[INFO  - 2016-11-19T00:06:19.920Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"linux-unknown-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"},"phantomjs.page.settings.resourceTimeout":0,"phantomjs.page.settings.loadImages":false}
-[INFO  - 2016-11-19T00:06:19.920Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ffa10000-adeb-11e6-bb57-2b3fc29bdedf
-[ERROR - 2016-11-19T00:06:23.246Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[INFO  - 2016-11-19T00:43:17.635Z] GhostDriver - Main - running on port 51090
+[INFO  - 2016-11-19T00:43:18.104Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":false,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Unknown; Linux) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2016-11-19T00:43:18.104Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.customHeaders:  - {}
+[INFO  - 2016-11-19T00:43:18.105Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"linux-unknown-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"},"phantomjs.page.settings.resourceTimeout":0,"phantomjs.page.settings.loadImages":false}
+[INFO  - 2016-11-19T00:43:18.105Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 29c308b0-adf1-11e6-b022-d159f0797951
+[ERROR - 2016-11-19T00:43:21.528Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.247Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.529Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -34,10 +34,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.304Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.589Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.304Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.590Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -65,10 +65,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.318Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.603Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.319Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.604Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -96,10 +96,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.328Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.614Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.329Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.615Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -127,10 +127,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.343Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.629Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.343Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.629Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -158,10 +158,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.355Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.641Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.355Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.641Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -189,10 +189,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.366Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.652Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.367Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.653Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -220,10 +220,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.376Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.662Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.376Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.662Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -251,10 +251,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.385Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.671Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.385Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.671Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
@@ -282,10 +282,10 @@
   _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.393Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+[ERROR - 2016-11-19T00:43:21.680Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-11-19T00:06:23.394Z] Session [ffa10000-adeb-11e6-bb57-2b3fc29bdedf] - page.onError - stack:
+[ERROR - 2016-11-19T00:43:21.680Z] Session [29c308b0-adf1-11e6-b022-d159f0797951] - page.onError - stack:
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
   each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
   d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
