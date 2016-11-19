@@ -10,12 +10,10 @@
 [INFO  - 2016-11-19T00:57:56.526Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T01:02:56.525Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T01:07:56.525Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
-  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
-  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
-  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
-  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
-  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+[INFO  - 2016-11-19T01:12:56.526Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-11-19T01:17:56.526Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-11-19T01:22:56.526Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+query-ui-1.8.16.custom.min.js:71)
   search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
   (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
   sendEvent (:0)
@@ -314,3 +312,6 @@ https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
 [INFO  - 2016-11-19T01:07:06.535Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T01:03:17.633Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T01:08:17.633Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-11-19T01:13:17.633Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-11-19T01:18:17.633Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-11-19T01:23:17.634Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW

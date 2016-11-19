@@ -43,7 +43,7 @@ I'll send you *definitions* for the words that you send me, with its kind of wor
 
 If you set your anki *username* and *password*, I will automatically generate and upload a flashcard with the definition you select. Of course, *I need to store your username and password* in order to do that, I won't use your data for anything but I recommend you not to use the typical password you use everywhere!
 
-Code on [GitHub](https://github.com/damaru2/anki_cards_generator) along with a script to generate flashcards from your computer (without compromising your data) by just copying the word and calling the script ''')
+Code on [GitHub](https://github.com/damaru2/ankigenbot). You can also find [here](https://github.com/damaru2/anki_cards_generator) a script to generate flashcards from your computer (without compromising your data) by just copying the word and calling the script ''')
 
 
 def word(bot, update):
