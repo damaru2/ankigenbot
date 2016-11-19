@@ -28,7 +28,7 @@ updater = Updater(token_id)
 
 def start(bot, update):
     bot.sendMessage(update.message.chat_id,
-        text='Write any word to select definitions and add them to anki')
+        text='Write any word, select definitions and add them to anki!')
     db = AnkiGenDB()
     #TODO change the way of doing this
     if db.get_state(update.message.chat_id) is None:
