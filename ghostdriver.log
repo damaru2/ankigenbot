@@ -9,9 +9,8 @@
 [ERROR - 2016-11-19T00:52:09.760Z] Session [64cb6140-adf2-11e6-b415-7db60862eacf] - page.[INFO  - 2016-11-19T00:52:56.525Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T00:57:56.526Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T01:02:56.525Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-/static/js/jquery-1.9.1.min.js:3)
-  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
-  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+[INFO  - 2016-11-19T01:07:56.525Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
   _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
   _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
   response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
@@ -312,5 +311,6 @@
   phantomjs://platform/console++.js:263 in error
 [INFO  - 2016-11-19T00:57:06.531Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T01:02:06.536Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2016-11-19T00:58:17.633Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-11-19T01:07:06.535Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2016-11-19T01:03:17.633Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-11-19T01:08:17.633Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
