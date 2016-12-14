@@ -170,7 +170,9 @@ def button_th(bot, update):
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
                     return
-                CardSender(username, password).send_card(query.message.text, query.data, deck)
+                front = query.message.text
+                back = query.data.lower()
+                CardSender(username, password).send_card(front, back, deck)
             except:
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct?",
                         chat_id=query.message.chat_id,

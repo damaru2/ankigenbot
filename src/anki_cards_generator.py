@@ -45,6 +45,7 @@ class AnkiAutomatic:
                 prefix = new_prefix
                 line = self.normalize(tr.next_line())
             else:
+                print(line)
                 line = self.normalize(line)
 
         return definitions
@@ -55,6 +56,7 @@ class AnkiAutomatic:
             "suffix": "(suf.) ",
             "verb": "(v.) ",
             "adjective": "(adj.) ",
+            "abbreviation": "(abbrev.) ",
             "adverb": "(adv.) ",
             "preposition": "(prep.) ",
             "exclamation": "(excl.) ",

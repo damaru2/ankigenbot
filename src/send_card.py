@@ -39,6 +39,7 @@ class CardSender:
             pass
         self.driver.find_element_by_xpath(
             '//*[@id="modelarea"]/tbody/tr[1]/td[3]/button').click()
+        self.driver.quit()
 
 if __name__ == "__main__":
     cs = CardSender('davidmartirubio@gmail.com', 'myankipassword')
