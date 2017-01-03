@@ -42,5 +42,5 @@ class CardSender:
         self.driver.quit()
 
 if __name__ == "__main__":
-    cs = CardSender('davidmartirubio@gmail.com', 'myankipassword')
+    cs = CardSender('aaa@gmail.com', 'mypassword')
     cs.send_card('xoxoxo', ':)', 'Vocabulary')

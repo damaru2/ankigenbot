@@ -45,7 +45,6 @@ class AnkiAutomatic:
                 prefix = new_prefix
                 line = self.normalize(tr.next_line())
             else:
-                print(line)
                 line = self.normalize(line)
 
         return definitions
@@ -59,6 +58,8 @@ class AnkiAutomatic:
             "abbreviation": "(abbrev.) ",
             "adverb": "(adv.) ",
             "preposition": "(prep.) ",
+            "pronoun": "(pron.) ",
+            "article": "(article) ",
             "exclamation": "(excl.) ",
             "conjunction": "(conj.) "
         }.get(x, "")   # "" is default if x not found
