@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from subprocess import PIPE, Popen
 
 
 class AnkiAutomatic:
@@ -16,7 +17,8 @@ class AnkiAutomatic:
         if concept.find(" ") != -1:
             return
         query = "trans -d {}:{} {}".format(language, language, concept)
-        translation = os.popen(query).read()
+        #asdf = os.popen(query)
+        translation = Popen(query, shell=True, stdout=PIPE).stdout.read().decode('utf8')
         tr = ParseTranslation(translation)
         concept = tr.get_concept()
         prefix = self.pref(tr.next_line())
