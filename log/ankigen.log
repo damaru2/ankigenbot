@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "src/ankigen_bot.py", line 176, in button_th
+    CardSender(username, password).send_card(front, back, deck)
+  File "/home/damaru/ankigen_bot/src/send_card.py", line 41, in send_card
+    '//*[@id="modelarea"]/tbody/tr[1]/td[3]/button').click()
+  File "/usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/webdriver.py", line 293, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "/usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/webdriver.py", line 752, in find_element
+    'value': value})['value']
+  File "/usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "/usr/local/lib/python3.5/dist-packages/selenium/webdriver/remote/errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: {"errorMessage":"Unable to find element with xpath '//*[@id=\"modelarea\"]/tbody/tr[1]/td[3]/button'","request":{"headers":{"Accept":"application/json","Accept-Encoding":"identity","Connection":"close","Content-Length":"131","Content-Type":"application/json;charset=UTF-8","Host":"127.0.0.1:50979","User-Agent":"Python-urllib/3.5"},"httpVersion":"1.1","method":"POST","post":"{\"sessionId\": \"590725d0-e3e7-11e6-b1db-9bfd84a4f539\", \"value\": \"//*[@id=\\\"modelarea\\\"]/tbody/tr[1]/td[3]/button\", \"using\": \"xpath\"}","url":"/element","urlParsed":{"anchor":"","query":"","file":"element","directory":"/","path":"/element","relative":"/element","port":"","host":"","password":"","user":"","userInfo":"","authority":"","protocol":"","source":"/element","queryKey":{},"chunks":["element"]},"urlOriginal":"/session/590725d0-e3e7-11e6-b1db-9bfd84a4f539/element"}}
+Screenshot: available via screen
+
+

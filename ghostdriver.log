@@ -1,22 +1,313 @@
-[INFO  - 2017-01-26T15:37:47.562Z] GhostDriver - Main - running on port 59435
-[INFO  - 2017-01-26T15:37:48.070Z] Session [63a516a0-e3dd-11e6-8b2d-ed5924c76829] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":false,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Unknown; Linux) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2017-01-26T15:37:48.071Z] Session [63a516a0-e3dd-11e6-8b2d-ed5924c76829] - page.customHeaders:  - {}
-[INFO  - 2017-01-26T15:37:48.071Z] Session [63a516a0-e3dd-11e6-8b2d-ed5924c76829] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"linux-unknown-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"},"phantomjs.page.settings.loadImages":false,"phantomjs.page.settings.resourceTimeout":0}
-[INFO  - 2017-01-26T15:37:48.071Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 63a516a0-e3dd-11e6-8b2d-ed5924c76829
-[ERROR - 2017-01-26T15:37:51.300Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1485445071294
+[INFO  - 2017-01-26T16:51:48.364Z] GhostDriver - Main - running on port 51143
+[INFO  - 2017-01-26T16:51:48.680Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":false,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Unknown; Linux) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-01-26T16:51:48.680Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.customHeaders:  - {}
+[INFO  - 2017-01-26T16:51:48.681Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"linux-unknown-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"},"phantomjs.page.settings.loadImages":false,"phantomjs.page.settings.resourceTimeout":0}
+[INFO  - 2017-01-26T16:51:48.681Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ba766290-e3e7-11e6-b796-8f5b7f33a551
+[ERROR - 2017-01-26T16:51:52.066Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-01-26T15:37:52.530Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1485445072524
+[ERROR - 2017-01-26T16:51:52.066Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:231)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-01-26T15:37:53.897Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1485445073894
+[ERROR - 2017-01-26T16:51:52.124Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-01-26T15:37:55.095Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1485445075082
+[ERROR - 2017-01-26T16:51:52.125Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.[INFO  - 2017-01-26T16:52:47.593Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+onymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
 
   phantomjs://platform/console++.js:263 in error
-[INFO  - 2017-01-26T15:42:47.595Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2017-01-26T15:47:47.593Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2017-01-26T15:52:47.593Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2017-01-26T15:57:47.593Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2017-01-26T16:02:47.593Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[ERROR - 2017-01-26T16:51:52.139Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.139Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.149Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.150Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.164Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.164Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.176Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.177Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.188Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.188Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.197Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.198Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.206Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.206Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.215Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - msg: TypeError: undefined is not a function (evaluating 'c.curCSS(f,"padding"+this,true)')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2017-01-26T16:51:52.215Z] Session [ba766290-e3e7-11e6-b796-8f5b7f33a551] - page.onError - stack:
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  d (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:14)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  each (https://ankiweb.net/static/js/jquery-1.9.1.min.js:3)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:15)
+  _resizeMenu (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _suggest (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:73)
+  _response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  response (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  source (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:70)
+  _search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  search (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:71)
+  (anonymous function) (https://ankiweb.net/static/js/jquery-ui-1.8.16.custom.min.js:66)
+  sendEvent (:0)
+  _keyEvent (phantomjs://code/inputs.js:325)
+  _pressKey (phantomjs://code/inputs.js:280)
+  _sendKeys (phantomjs://code/inputs.js:237)
+  _postValueCommand (phantomjs://code/webelement_request_handler.js:288)
+  _handle (phantomjs://code/webelement_request_handler.js:72)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/session_request_handler.js:120)
+  _reroute (phantomjs://code/request_handler.js:61)
+  _handle (phantomjs://code/router_request_handler.js:78)
+
+  phantomjs://platform/console++.js:263 in error
