@@ -11,6 +11,7 @@ from anki_cards_generator import AnkiAutomatic
 from send_card import CardSender
 from database import AnkiGenDB
 from enums import State, Languages
+import traceback
 
 
 # Enable logging
@@ -173,7 +174,8 @@ def button_th(bot, update):
                 front = query.message.text
                 back = query.data.lower()
                 CardSender(username, password).send_card(front, back, deck)
-            except:
+            except Exception:
+                print(traceback.format_exc())
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct?",
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
