@@ -175,7 +175,6 @@ def button_th(bot, update):
                 back = query.data.lower()
                 CardSender(username, password).send_card(front, back, deck)
             except Exception:
-                print(traceback.format_exc())
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct? Check if you can access https://ankiweb.net/ with your credentials",
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
