@@ -1,5 +1,5 @@
 # ankigenbot
-[t.me/ankigen_bot](@ankigen_bot), Telegram bot to automatically generate and upload anki cards to [ankisrs.net](ankisrs.net)
+[@ankigen_bot](t.me/ankigen_bot), Telegram bot to automatically generate and upload anki cards to [ankisrs.net](ankisrs.net)
 ![image3](https://github.com/damaru2/ankigenbot/blob/master/.assets/image3.png)
 
 ## Write a word and select the definitions you want
