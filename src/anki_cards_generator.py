@@ -55,6 +55,7 @@ class AnkiAutomatic:
         return {
             "noun": "(n.) ",
             "suffix": "(suf.) ",
+            "prefix": "(prefix) ",
             "verb": "(v.) ",
             "adjective": "(adj.) ",
             "abbreviation": "(abbrev.) ",

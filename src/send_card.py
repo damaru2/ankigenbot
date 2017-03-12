@@ -21,23 +21,28 @@ class CardSender:
         pass_box.send_keys(password + '\n')
 
     def send_card(self, front, back, deck):
-        try:
-            self.driver.find_element_by_xpath(
-                '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
-        except:
-            print(traceback.format_exc())
-            self.driver.quit()
-            raise
+        self.driver.find_element_by_xpath(
+                            '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
         try:
             deck_box = self.driver.find_element_by_id('deck')
             deck_box.clear()
             deck_box.send_keys(deck)
+        except:
+            pass
+        try:
             self.driver.find_element_by_xpath('//*[@id="f0"]').send_keys(front)
+        except:
+            pass
+        try:
             self.driver.find_element_by_id('f1').send_keys(back)
+        except:
+            pass
+        try:
             self.driver.find_element_by_xpath(
                     '/html/body/main/p/button').click()
         except:
-            print(traceback.format_exc())
+            pass
+
         self.driver.quit()
 
 if __name__ == "__main__":
