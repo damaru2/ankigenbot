@@ -20,7 +20,9 @@ class AnkiAutomatic:
         #asdf = os.popen(query)
         translation = Popen(query, shell=True, stdout=PIPE).stdout.read().decode('utf8')
         tr = ParseTranslation(translation)
-        concept = tr.get_concept()
+        concept = tr.get_concept().strip('\t\r\n\0')
+        # This is to remove the "null" that appears after the change in google translate
+        concept = concept.split()[0]
         prefix = self.pref(tr.next_line())
         if prefix == "":
             return
