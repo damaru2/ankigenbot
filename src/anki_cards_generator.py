@@ -23,7 +23,8 @@ class AnkiAutomatic:
         concept = tr.get_concept().strip('\t\r\n\0')
         # This is to remove the "null" that appears after the change in google translate
         concept = concept.split()[0]
-        prefix = self.pref(tr.next_line())
+        aux = tr.next_line()
+        prefix = self.pref(aux)
         if prefix == "":
             return
         line = self.normalize(tr.next_line())
@@ -129,7 +130,7 @@ class ParseTranslation:
         self.concept = self.next_line().lower()
         phonetic = self.next_line()
         # If there was a phonetic line, extra read
-        if len(phonetic) > 0 and phonetic[0] == '/':
+        if len(phonetic) > 0: # and phonetic[0] == '/': TODO check that this extra condition is not neccesary
             self.next_line()
 
     def next_line(self):
