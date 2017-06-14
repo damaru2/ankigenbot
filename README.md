@@ -8,3 +8,5 @@
 <img src="https://github.com/damaru2/ankigenbot/blob/master/.assets/image2.png" width="650">
 
 <img src="https://github.com/damaru2/ankigenbot/blob/master/.assets/image4.jpg" width="450">
+
+For executing this code, you need selenium, phantomJS,the telegram libraries and [translate shell](https://github.com/soimort/translate-shell/)
