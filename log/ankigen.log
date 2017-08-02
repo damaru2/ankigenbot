@@ -1,17 +1,1 @@
-[33mShowing translation for:  (use -no-auto to disable autocorrect)[0m
-Exception in thread Thread-48:
-Traceback (most recent call last):
-  File "/usr/lib/python3.5/threading.py", line 914, in _bootstrap_inner
-    self.run()
-  File "/usr/lib/python3.5/threading.py", line 862, in run
-    self._target(*self._args, **self._kwargs)
-  File "src/ankigen_bot.py", line 68, in word_th
-    defs = AnkiAutomatic(concept).retrieve_defs(lang.name)
-  File "/home/damaru/ankigen_bot/src/anki_cards_generator.py", line 21, in retrieve_defs
-    translation = Popen(query, shell=True, stdout=PIPE).stdout.read().decode('utf8')
-  File "/usr/lib/python3.5/subprocess.py", line 947, in __init__
-    restore_signals, start_new_session)
-  File "/usr/lib/python3.5/subprocess.py", line 1490, in _execute_child
-    restore_signals, start_new_session, preexec_fn)
-UnicodeEncodeError: 'ascii' codec can't encode character '\xf1' in position 17: ordinal not in range(128)
 
