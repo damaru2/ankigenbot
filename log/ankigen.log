@@ -1,1 +1,14 @@
-
+2017-10-12 23:02:31,883 - __main__ - WARNING - Update "None" caused error "urllib3 HTTPError HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot268301738:AAEeNGrjEYySuXVzkPkcvS8FmJaT3pctwW4/getUpdates (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x720c5990>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution',))"
+Exception in thread Thread-159:
+Traceback (most recent call last):
+  File "/usr/lib/python3.5/threading.py", line 914, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.5/threading.py", line 862, in run
+    self._target(*self._args, **self._kwargs)
+  File "src/ankigen_bot.py", line 68, in word_th
+    defs = AnkiAutomatic(concept).retrieve_defs(lang.name)
+  File "/home/damaru/ankigen_bot/src/anki_cards_generator.py", line 53, in retrieve_defs
+    line = self.normalize(line)
+  File "/home/damaru/ankigen_bot/src/anki_cards_generator.py", line 75, in normalize
+    return line.rsplit('.', 1)[0].split(' ', 1)[1].strip()
+IndexError: list index out of range
