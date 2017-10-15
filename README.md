@@ -12,3 +12,5 @@
 ---
 ## Installation
 For executing this code, you need selenium, phantomJS,the telegram libraries and [translate shell](https://github.com/soimort/translate-shell/). Create a file called `private_conf.py` with a variable `token_id` initialized to the toked_id of your telegram bot.
+
+You also have to create in the root directory two folders called `data` and `log`.
