@@ -32,9 +32,11 @@ class AnkiAutomatic:
         definitions = []
         while True:
             n_def += 1
-            if len(line) == 0:
+            if not line:
                 break
             example = self.parse_example(tr.next_line(), concept, language)
+            if not example:
+                tr.go_back()
             definitions.append("{}{}{}".format(prefix, line, example))
             line = tr.next_line()
             if line in AnkiAutomatic.last:
@@ -130,7 +132,7 @@ class ParseTranslation:
         self.concept = self.next_line().lower()
         phonetic = self.next_line()
         # If there was a phonetic line, extra read
-        if len(phonetic) > 0: # and phonetic[0] == '/': TODO check that this extra condition is not neccesary
+        if len(phonetic) > 0:  # and phonetic[0] == '/': TODO check that this extra condition is not neccesary
             self.next_line()
 
     def next_line(self):
@@ -139,6 +141,9 @@ class ParseTranslation:
             return self.translation[self.counter]
         except IndexError:
             return ''
+
+    def go_back(self):
+        self.counter -= 1
 
     def get_concept(self):
         return self.concept
