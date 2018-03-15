@@ -93,6 +93,11 @@ class AnkiAutomatic:
                 example = example.replace(concept + concept[-1] + "ed", dots)
                 example = example.replace(concept + "ing", dots)
                 example = example.replace(concept + concept[-1] + "ing", dots)
+                if concept[-1] == 'f':
+                    example = example.replace(concept[:-1] + "ves", dots)
+                if concept[-1] == 'fe':
+                    example = example.replace(concept[:-2] + "ves", dots)
+                example = example.replace(concept[:1] + concept[-1] + "ing", dots)
                 if concept[-1] == 'y':
                     example = example.replace(concept[:-1] + "ies", dots)
             example = example.replace(concept, dots)
