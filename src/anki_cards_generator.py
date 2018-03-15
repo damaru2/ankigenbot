@@ -86,11 +86,10 @@ class AnkiAutomatic:
                 # This is so words that contain concept or a conjugation of it
                 # as a substring are not removed
                 dots = "....."
-                return re.sub("(^|[^a-zA-Z]){}([^a-zA-Z]|$)".format(concept),
-                    "\g<1>{}\g<2>".format(dots), example)
+                regex = re.compile("(^|[^a-zA-Z])" + concept +"([^a-zA-Z]|$)", re.IGNORECASE)
+                return regex.sub("\g<1>{}\g<2>".format(dots), example)
 
             # remove concept variations
-            dots = "....."
             if language == 'en':
                 example = remove_pattern(example, concept + 's')
                 example = remove_pattern(example, concept + "es")
