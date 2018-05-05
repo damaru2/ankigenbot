@@ -38,16 +38,8 @@ class AnkiGenDB:
                 password            STRING,
                 deck                STRING,
                 language            INTEGER,
-                state               INTEGER)
-                ''')
-        self.conn.execute(
-            '''CREATE TABLE stats (
-                id                  INTEGER PRIMARY KEY,
-                username            STRING,
-                password            STRING,
-                deck                STRING,
-                language            INTEGER,
-                state               INTEGER)
+                state               INTEGER,
+                reverse_order       INTEGER)
                 ''')
 
         self.conn.commit()
@@ -127,3 +119,26 @@ class AnkiGenDB:
         insert_new_user = '''INSERT INTO users VALUES (?,?,?,?,?,?)'''
         self.conn.execute(insert_new_user, (id_chat, username, password, deck, language, state))
         self.conn.commit()
+
+    def reverse_order(self, id_chat):
+        rev = self.is_order_reversed(id_chat)
+        if rev is None:
+            return None
+        else:
+            rev = 1-rev
+        update_query = '''UPDATE users
+                          SET reverse_order = ?
+                          WHERE id_chat = ?'''
+        self.conn.execute(update_query, (rev, id_chat))
+        self.conn.commit()
+        return rev
+
+    def is_order_reversed(self, id_chat):
+        query = '''SELECT reverse_order FROM users
+                    WHERE id_chat = ?'''
+        rev = self.cur.execute(query, (id_chat,)).fetchone()
+        if rev is None:
+            return None
+        else:
+            return rev[0]
+

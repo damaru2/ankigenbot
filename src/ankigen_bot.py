@@ -133,6 +133,19 @@ def language(bot, update):
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text('Select a language', reply_markup=reply_markup)
 
+def swap(bot, update):
+    ret = AnkiGenDB().reverse_order(update.message.chat_id)
+    if not ret:
+        return
+    elif ret == 0:
+        bot.sendMessage(update.message.chat_id,
+                        text='Card format set to definition on the front and word on the back.')
+    elif ret == 1:
+        bot.sendMessage(update.message.chat_id,
+                        text='Card format set to word on the front and definition on the back.')
+    else:
+        pass
+
 
 def button(bot, update):
     Thread(target=button_th, args=(bot, update)).start()
@@ -165,7 +178,8 @@ def button_th(bot, update):
                     chat_id=query.message.chat_id,
                     message_id=query.message.message_id)
             try:
-                username, password, deck = AnkiGenDB().get_data(query.message.chat_id)
+                db = AnkiGenDB()
+                username, password, deck = db.get_data(query.message.chat_id)
                 if username is None or password is None or deck is None:
                     bot.editMessageText(text="I can't send your data because I don't have your credentials or deck name",
                         chat_id=query.message.chat_id,
@@ -173,7 +187,10 @@ def button_th(bot, update):
                     return
                 front = query.message.text
                 back = query.data.lower()
-                CardSender(username, password).send_card(front, back, deck)
+                if db.is_order_reversed(query.message.chat_id) == 1: # Reverse
+                    CardSender(username, password).send_card(back, front, deck)
+                else: # Don't reverse
+                    CardSender(username, password).send_card(front, back, deck)
             except Exception:
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct? Check if you can access https://ankiweb.net/ with your credentials",
                         chat_id=query.message.chat_id,
@@ -207,6 +224,7 @@ def main():
     dp.add_handler(CommandHandler("language", language))
     dp.add_handler(CommandHandler("user", user))
     dp.add_handler(CommandHandler("pass", passwd))
+    dp.add_handler(CommandHandler("swap", swap))
     dp.add_handler(CommandHandler("deck", deck))
     dp.add_handler(MessageHandler(Filters.text, word))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
