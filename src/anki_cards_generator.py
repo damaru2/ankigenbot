@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 from subprocess import PIPE, Popen
 
 
@@ -32,9 +33,11 @@ class AnkiAutomatic:
         definitions = []
         while True:
             n_def += 1
-            if len(line) == 0:
+            if not line:
                 break
             example = self.parse_example(tr.next_line(), concept, language)
+            if not example:
+                tr.go_back()
             definitions.append("{}{}{}".format(prefix, line, example))
             line = tr.next_line()
             if line in AnkiAutomatic.last:
@@ -79,21 +82,35 @@ class AnkiAutomatic:
             # This removes the concept or variations of it
             example = example.split("\"")[1]
 
+            def remove_pattern(example, concept):
+                # This is so words that contain concept or a conjugation of it
+                # as a substring are not removed
+                dots = "....."
+                regex = re.compile("(^|[^a-zA-Z])" + concept +"([^a-zA-Z]|$)", re.IGNORECASE)
+                return regex.sub("\g<1>{}\g<2>".format(dots), example)
+
             # remove concept variations
-            dots = "....."
             if language == 'en':
-                example = example.replace(concept + "s", dots)
-                example = example.replace(concept + "es", dots)
+                example = remove_pattern(example, concept + 's')
+                example = remove_pattern(example, concept + "es")
+
                 if concept[-1] == 'e':
-                    example = example.replace(concept + "d", dots)
-                    example = example.replace(concept[:-1] + "ing", dots)
-                example = example.replace(concept + "ed", dots)
-                example = example.replace(concept + concept[-1] + "ed", dots)
-                example = example.replace(concept + "ing", dots)
-                example = example.replace(concept + concept[-1] + "ing", dots)
+                    example = remove_pattern(example, concept + "d")
+                    example = remove_pattern(example, concept[:-1] + "ing")
+
+                example = remove_pattern(example, concept + "ed")
+                example = remove_pattern(example, concept + concept[-1] + "ed")
+                example = remove_pattern(example, concept + "ing")
+                example = remove_pattern(example, concept + concept[-1] + "ing")
+                if concept[-1] == 'f':
+                    example = remove_pattern(example, concept[:-1] + "ves")
+                if concept[-1] == 'fe':
+                    example = remove_pattern(example, concept[:-2] + "ves")
+                example = remove_pattern(example, concept[:1] + concept[-1] + "ing")
                 if concept[-1] == 'y':
-                    example = example.replace(concept[:-1] + "ies", dots)
-            example = example.replace(concept, dots)
+                    example = remove_pattern(example, concept[:-1] + "ies")
+                example = remove_pattern(example, concept)
+
             return " (e.g. " + example + ")"
         else:
             return ''
@@ -118,7 +135,7 @@ class AnkiAutomatic:
             lines = os.popen("zenity  --list --text '{} - Seleciona las definiciones para añadir a la base de datos de Anki' --checklist --column \"Pick\" --column \"Definitions\" {} --width=1000 --height=450".format(concept, definitions)).read()
             card_lines = lines[:-1].split('|')
         else:  # no definitions found
-            os.system("zenity --question --ok-label=\"Ok\" --cancel-label=\"Cancelar\"  --height=10 --text=\"No se ha encontrado una definición para \\\"{}\\\" \"".format(concept))
+                os.system("zenity --question --ok-label=\"Ok\" --cancel-label=\"Cancelar\"  --height=10 --text=\"No se ha encontrado una definición para \\\"{}\\\" \"".format(concept))
         return card_lines
 
 
@@ -130,7 +147,7 @@ class ParseTranslation:
         self.concept = self.next_line().lower()
         phonetic = self.next_line()
         # If there was a phonetic line, extra read
-        if len(phonetic) > 0: # and phonetic[0] == '/': TODO check that this extra condition is not neccesary
+        if len(phonetic) > 0:  # and phonetic[0] == '/': TODO check that this extra condition is not neccesary
             self.next_line()
 
     def next_line(self):
@@ -139,6 +156,9 @@ class ParseTranslation:
             return self.translation[self.counter]
         except IndexError:
             return ''
+
+    def go_back(self):
+        self.counter -= 1
 
     def get_concept(self):
         return self.concept
