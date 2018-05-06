@@ -46,5 +46,3 @@ def retrive_defs(word):
             definitions.append("{}{}{}".format(prefix, _def, examples))
 
     return definitions
-
-print( "\n#################\n".join(retrive_defs('get')))
