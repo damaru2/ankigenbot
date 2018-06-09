@@ -7,8 +7,7 @@ from subprocess import PIPE, Popen
 
 class AnkiAutomatic:
 
-    last = ["Synonyms", "Examples","See also"]
-    web_mode = True
+    last = ["Synonyms", "Examples","See also", "EOF"]
 
     def __init__(self, concept):
         self.concept = concept
@@ -109,6 +108,7 @@ class AnkiAutomatic:
                 example = remove_pattern(example, concept[:1] + concept[-1] + "ing")
                 if concept[-1] == 'y':
                     example = remove_pattern(example, concept[:-1] + "ies")
+                    example = remove_pattern(example, concept[:-1] + "ied")
                 example = remove_pattern(example, concept)
 
             return " (e.g. " + example + ")"
@@ -127,15 +127,15 @@ class AnkiAutomatic:
         card_lines = []
         if n_def == 1:
             definitions = definitions.replace("\\\"", "\"")[7:-2]
-            confirm = os.system('''zenity --question --ok-label=\"Ok\" --cancel-label=\"Cancelar\"  --height=10 --text=\" Se añadirá a anki la tarjeta:\n {} \"'''
+            confirm = os.system('''zenity --question --ok-label=\"Ok\" --cancel-label=\"Cancel\"  --height=10 --text=\" The following card will be added:\n {} \"'''
                                 .format(definitions.replace("\"", "\\\"")))
             if confirm == 0:
                 card_lines.append(definitions)
         elif n_def > 1:
-            lines = os.popen("zenity  --list --text '{} - Seleciona las definiciones para añadir a la base de datos de Anki' --checklist --column \"Pick\" --column \"Definitions\" {} --width=1000 --height=450".format(concept, definitions)).read()
+            lines = os.popen("zenity  --list --text '{} - Select definitions to be updated to Anki's database' --checklist --column \"Pick\" --column \"Definitions\" {} --width=1000 --height=450".format(concept, definitions)).read()
             card_lines = lines[:-1].split('|')
         else:  # no definitions found
-                os.system("zenity --question --ok-label=\"Ok\" --cancel-label=\"Cancelar\"  --height=10 --text=\"No se ha encontrado una definición para \\\"{}\\\" \"".format(concept))
+                os.system("zenity --question --ok-label=\"Ok\" --cancel-label=\"Cancel\"  --height=10 --text=\"No definitions were found for \\\"{}\\\" \"".format(concept))
         return card_lines
 
 
@@ -155,7 +155,7 @@ class ParseTranslation:
         try:
             return self.translation[self.counter]
         except IndexError:
-            return ''
+            return 'EOF'
 
     def go_back(self):
         self.counter -= 1
