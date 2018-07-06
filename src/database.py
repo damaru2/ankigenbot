@@ -11,7 +11,7 @@ def lock(func):
         with AnkiGenDB.lock_db:
             try:
                 return func(self, *args, **kwargs)
-            except:
+            except Exception as e:
                 self.conn.commit()
                 self.conn.close()
     return wrapper
@@ -39,7 +39,7 @@ class AnkiGenDB:
                 deck                STRING,
                 language            INTEGER,
                 state               INTEGER,
-                reverse_order       INTEGER)
+                reverse_order       INTEGER DEFAULT 0)
                 ''')
 
         self.conn.commit()
@@ -115,9 +115,9 @@ class AnkiGenDB:
         self.conn.commit()
 
     @lock
-    def insert_new_user(self, id_chat, username=None, password=None, deck=None, language=0, state=-1):
-        insert_new_user = '''INSERT INTO users VALUES (?,?,?,?,?,?)'''
-        self.conn.execute(insert_new_user, (id_chat, username, password, deck, language, state))
+    def insert_new_user(self, id_chat, username=None, password=None, deck=None, language=0, state=-1, reverse=0):
+        insert_new_user = '''INSERT INTO users VALUES (?,?,?,?,?,?,?)'''
+        self.conn.execute(insert_new_user, (id_chat, username, password, deck, language, state, reverse))
         self.conn.commit()
 
     def reverse_order(self, id_chat):

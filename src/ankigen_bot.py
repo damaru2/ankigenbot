@@ -33,14 +33,14 @@ def start(bot, update):
     db = AnkiGenDB()
     #TODO change the way of doing this
     if db.get_state(update.message.chat_id) is None:
-        AnkiGenDB().insert_new_user(id_chat=update.message.chat_id)
+        db.insert_new_user(id_chat=update.message.chat_id)
 
 
 def help(bot, update):
     bot.sendMessage(update.message.chat_id, parse_mode='Markdown',
         text='''I generate flashcards for [Anki](www.ankisrs.net).
 
-I'll send you *definitions* for the words that you send me, with its kind of word and a sentence example substituting the word by ".....". If the language is english, variations of the word will be also removed.
+I'll send you *definitions* for the words that you send me, with its kind of word and a sentence example substituting the #word by ".....". If the language is english, variations of the word will be also removed.
 
 If you set your anki *username* and *password*, I will automatically generate and upload a flashcard with the definition you select. Of course, *I need to store your username and password* in order to do that, I won't use your data for anything but I recommend you not to use the typical password you use everywhere!
 
