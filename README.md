@@ -11,6 +11,10 @@
 
 ---
 ## Installation
-For executing this code, you need selenium, phantomJS,the telegram libraries and [translate shell](https://github.com/soimort/translate-shell/). Create a file called `private_conf.py` with a variable `token_id` initialized to the toked_id of your telegram bot.
+For executing this code, you need selenium, Chrome or Chromium,the telegram libraries and [translate shell](https://github.com/soimort/translate-shell/). 
+
+Create a file called `private_conf.py` with a variable `token_id` initialized to the toked_id of your telegram bot.
+
+Open `src/send_card.py` and edit `options.binary_location` so it points to your Chromium/Chrome binary file
 
 You also have to create in the root directory two folders called `data` and `log`.
