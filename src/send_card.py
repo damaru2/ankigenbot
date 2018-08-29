@@ -9,25 +9,16 @@ class CardSender:
 
     def __init__(self, username, password):
         self.driver = None
-        #self.cap = webdriver.DesiredCapabilities.PHANTOMJS
-        #self.cap["phantomjs.page.settings.resourceTimeout"] = 0
-        #self.cap["phantomjs.page.settings.loadImages"] = False
-        #self.driver = webdriver.PhantomJS(desired_capabilities=self.cap)
-        #self.driver = webdriver.Chrome('/usr/bin/chromedriver')
-
 
         options = webdriver.ChromeOptions()
-
         options.add_argument("--window-size=1920x1080")
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
 
-
         options.binary_location = "/usr/lib/chromium-browser/chromium-browser"
         self.driver = webdriver.Chrome(chrome_options=options)
-
 
         self.driver.set_window_size(1920, 1080)
         self.driver.get(CardSender.url)
