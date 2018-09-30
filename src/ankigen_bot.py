@@ -208,6 +208,8 @@ def button_th(bot, update):
         bot.editMessageText(text="Sorry, the message was too old",
                 chat_id=query.message.chat_id,
                 message_id=query.message.message_id)
+        print("Sorry, the message was too old")
+        print(traceback.format_exc())
         raise
 
 

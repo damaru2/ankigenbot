@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+
 import traceback
 #from selenium.webdriver.support.ui import WebDriverWait
 #from selenium.webdriver.common.action_chains import ActionChains
@@ -28,27 +30,30 @@ class CardSender:
         pass_box.send_keys(password + '\n')
 
     def send_card(self, front, back, deck):
-        self.driver.find_element_by_xpath(
-                            '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
         try:
+            # Click on the "Add" tab
+            self.driver.find_element_by_xpath(
+                            '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
+
+            # Card type = Basic
+            select = Select(self.driver.find_element_by_id('models'))
+            select.select_by_value("1")
+
+            # Write deck type
             deck_box = self.driver.find_element_by_id('deck')
             deck_box.clear()
             deck_box.send_keys(deck)
-        except:
-            pass
-        try:
+
+            # Fill fields
             self.driver.find_element_by_xpath('//*[@id="f0"]').send_keys(front)
-        except:
-            pass
-        try:
             self.driver.find_element_by_id('f1').send_keys(back)
-        except:
-            pass
-        try:
+
+            # Add
             self.driver.find_element_by_xpath(
                     '/html/body/main/p/button').click()
         except:
-            pass
+            print(traceback.format_exc())
+            raise
 
         self.driver.quit()
 
