@@ -195,7 +195,6 @@ def button_th(bot, update):
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct? Check if you can access https://ankiweb.net/ with your credentials",
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
-                raise
                 return
             bot.editMessageText(text="{}\n".format(query.message.text) + u"\u2705",
                     chat_id=query.message.chat_id,
