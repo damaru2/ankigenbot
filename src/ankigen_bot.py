@@ -5,6 +5,7 @@ import logging
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
         CallbackQueryHandler)
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.error import TimedOut
 from threading import Thread
 from private_conf import token_id
 from anki_cards_generator import AnkiAutomatic
@@ -195,7 +196,6 @@ def button_th(bot, update):
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct? Check if you can access https://ankiweb.net/ with your credentials",
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
-                raise
                 return
             bot.editMessageText(text="{}\n".format(query.message.text) + u"\u2705",
                     chat_id=query.message.chat_id,
@@ -204,6 +204,12 @@ def button_th(bot, update):
             bot.editMessageText(text=query.message.text + '\n' + u"\u274C",
                     chat_id=query.message.chat_id,
                     message_id=query.message.message_id)
+    except TimedOut:
+        bot.editMessageText(text="Telegram timed out, try again later.",
+                chat_id=query.message.chat_id,
+                message_id=query.message.message_id)
+        print("Telegram timed out")
+        print(traceback.format_exc())
     except:
         bot.editMessageText(text="Sorry, the message was too old",
                 chat_id=query.message.chat_id,

@@ -27,7 +27,7 @@ class CardSender:
         usr_box = self.driver.find_element_by_id('email')
         usr_box.send_keys(username)
         pass_box = self.driver.find_element_by_id('password')
-        pass_box.send_keys(password + '\n')
+        pass_box.send_keys('{}\n'.format(password))
 
     def send_card(self, front, back, deck):
         try:
