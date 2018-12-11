@@ -1,5 +1,8 @@
 # ankigenbot
-[@ankigen_bot](https://t.me/ankigen_bot), Telegram bot to automatically generate and upload anki cards to [ankisrs.net](ankisrs.net). Anki is a very effective program to learn vocabulary, but anki does not have any  
+[@ankigen_bot](https://t.me/ankigen_bot), Telegram bot to automatically generate and upload anki cards to [ankisrs.net](ankisrs.net). Anki is a very effective program to learn vocabulary, but anki does not have any way to generate cards automatically. This is a program that given a word in English, Spanish or French it will send you definitions with sentence examples and with a tap you can add them to your anki deck.
+
+If you want [@ankigen_bot](https://t.me/ankigen_bot) to support another language, you can open an issue and point me to a hopefully nice, free and simple dictionary for that language.
+
 ![image3](https://github.com/damaru2/ankigenbot/blob/master/.assets/image3.png)
 
 ## Write a word and select the definitions you want
