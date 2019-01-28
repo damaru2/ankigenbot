@@ -197,11 +197,11 @@ def button_th(bot, update):
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
                 return
-            bot.editMessageText(text="{}\n".format(query.message.text) + u"\u2705",
+            bot.editMessageText(text="{}\n{}".format(query.message.text, u"\u2705"),
                     chat_id=query.message.chat_id,
                     message_id=query.message.message_id)
         else:
-            bot.editMessageText(text=query.message.text + '\n' + u"\u274C",
+            bot.editMessageText(text="{}\n{}".format(query.message.text, u"\u274C"),
                     chat_id=query.message.chat_id,
                     message_id=query.message.message_id)
     except TimedOut:

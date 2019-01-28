@@ -85,33 +85,33 @@ class AnkiAutomatic:
                 # This is so words that contain concept or a conjugation of it
                 # as a substring are not removed
                 dots = "....."
-                regex = re.compile("(^|[^a-zA-Z])" + concept +"([^a-zA-Z]|$)", re.IGNORECASE)
+                regex = re.compile("(^|[^a-zA-Z]){}([^a-zA-Z]|$)".format(concept), re.IGNORECASE)
                 return regex.sub("\g<1>{}\g<2>".format(dots), example)
 
             # remove concept variations
             if language == 'en':
-                example = remove_pattern(example, concept + 's')
-                example = remove_pattern(example, concept + "es")
+                example = remove_pattern(example, '{}s'.format(concept))
+                example = remove_pattern(example, "{}es".format(concept))
 
                 if concept[-1] == 'e':
-                    example = remove_pattern(example, concept + "d")
-                    example = remove_pattern(example, concept[:-1] + "ing")
+                    example = remove_pattern(example, "{}d".format(concept))
+                    example = remove_pattern(example, "{}ing".format(concept[:-1]))
 
-                example = remove_pattern(example, concept + "ed")
-                example = remove_pattern(example, concept + concept[-1] + "ed")
-                example = remove_pattern(example, concept + "ing")
-                example = remove_pattern(example, concept + concept[-1] + "ing")
+                example = remove_pattern(example, "{}ed".format(concept))
+                example = remove_pattern(example, "{}{}ed".format(concept, concept[-1]))
+                example = remove_pattern(example, "{}ing".format(concept))
+                example = remove_pattern(example, "{}{}ing".format(concept, concept[-1]))
                 if concept[-1] == 'f':
-                    example = remove_pattern(example, concept[:-1] + "ves")
+                    example = remove_pattern(example, "{}ves".format(concept[:-1]))
                 if concept[-1] == 'fe':
-                    example = remove_pattern(example, concept[:-2] + "ves")
-                example = remove_pattern(example, concept[:1] + concept[-1] + "ing")
+                    example = remove_pattern(example, "{}ves".format(concept[:-2]))
+                    #example = remove_pattern(example, "{}ing".format(concept[:1], concept[:-1]))
                 if concept[-1] == 'y':
-                    example = remove_pattern(example, concept[:-1] + "ies")
-                    example = remove_pattern(example, concept[:-1] + "ied")
+                    example = remove_pattern(example, "{}ies".format(concept[:-1]))
+                    example = remove_pattern(example, "{}ied".format(concept[:-1]))
                 example = remove_pattern(example, concept)
 
-            return " (e.g. " + example + ")"
+            return " (e.g. {})".format(example)
         else:
             return ''
 
