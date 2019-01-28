@@ -37,7 +37,7 @@ class CardSender:
 
             # Card type = Basic
             select = Select(self.driver.find_element_by_id('models'))
-            select.select_by_value("1")
+            select.select_by_visible_text("Basic")
 
             # Write deck type
             deck_box = self.driver.find_element_by_id('deck')
