@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+import time
 
 import traceback
 #from selenium.webdriver.support.ui import WebDriverWait
@@ -11,6 +12,8 @@ class CardSender:
 
     def __init__(self, username, password):
         self.driver = None
+
+        self.last_access = time.time()
 
         options = webdriver.ChromeOptions()
         options.add_argument("--window-size=1920x1080")
@@ -37,7 +40,13 @@ class CardSender:
 
             # Card type = Basic
             select = Select(self.driver.find_element_by_id('models'))
-            select.select_by_visible_text("Basic")
+
+            try:
+                select.select_by_visible_text("Basic")
+            except:
+                for option in select.options: #iterate over the options, place attribute value in list
+                    if "Basic" in option.text:
+                        select.select_by_visible_text(option.text)
 
             # Write deck type
             deck_box = self.driver.find_element_by_id('deck')
@@ -55,7 +64,6 @@ class CardSender:
             print(traceback.format_exc())
             raise
 
-        self.driver.quit()
 
 if __name__ == "__main__":
     cs = CardSender('aaa@gmail.com', 'mypassword')

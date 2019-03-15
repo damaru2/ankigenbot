@@ -39,7 +39,8 @@ class AnkiGenDB:
                 deck                STRING,
                 language            INTEGER,
                 state               INTEGER,
-                reverse_order       INTEGER DEFAULT 0)
+                reverse_order       INTEGER DEFAULT 0,
+                ipa                 INTEGER DEFAULT 0)
                 ''')
 
         self.conn.commit()
@@ -133,6 +134,19 @@ class AnkiGenDB:
         self.conn.commit()
         return rev
 
+    def swap_ipa(self, id_chat):
+        rev = self.get_if_add_phonetics(id_chat)
+        if rev is None:
+            return None
+        else:
+            rev = 1-rev
+        update_query = '''UPDATE users
+                          SET ipa = ?
+                          WHERE id_chat = ?'''
+        self.conn.execute(update_query, (rev, id_chat))
+        self.conn.commit()
+        return rev
+
     def is_order_reversed(self, id_chat):
         query = '''SELECT reverse_order FROM users
                     WHERE id_chat = ?'''
@@ -142,3 +156,18 @@ class AnkiGenDB:
         else:
             return rev[0]
 
+    def get_if_add_phonetics(self, id_chat):
+        query = '''SELECT ipa FROM users
+                    WHERE id_chat = ?'''
+        rev = self.cur.execute(query, (id_chat,)).fetchone()
+        if rev is None:
+            return None
+        else:
+            return rev[0]
+
+
+if __name__ == "__main__":
+    pass
+    #db = AnkiGenDB()
+    #db.conn.execute('''ALTER TABLE users ADD COLUMN ipa INTEGER DEFAULT 0''')
+    #db.conn.commit()

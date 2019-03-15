@@ -6,14 +6,16 @@ from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
         CallbackQueryHandler)
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.error import TimedOut
-from threading import Thread
+from threading import Thread, Timer, Lock
+import traceback
+import time
+
 from private_conf import token_id
 from anki_cards_generator import AnkiAutomatic
+from utils import to_ipa
 from send_card import CardSender
 from database import AnkiGenDB
 from enums import State, Languages
-import traceback
-
 
 # Enable logging
 logging.basicConfig(
@@ -27,6 +29,9 @@ log_errors = './log/errors.log'
 # Create the EventHandler and pass it your bot's token.
 updater = Updater(token_id)
 
+card_senders = dict()
+lock_card_senders = Lock()
+delay = 10
 
 def start(bot, update):
     bot.sendMessage(update.message.chat_id,
@@ -71,6 +76,7 @@ def word_th(bot, update):
                 bot.sendMessage(update.message.chat_id,
                     text='No definitions found')
                 return
+            if_add_phonetics = db.get_if_add_phonetics(update.message.chat_id)
             for definition in defs:
                 keyboard = [[InlineKeyboardButton("Add to anki", callback_data=concept),
                          InlineKeyboardButton("Cancel", callback_data='-1')]]
@@ -136,7 +142,7 @@ def language(bot, update):
 
 def swap(bot, update):
     ret = AnkiGenDB().reverse_order(update.message.chat_id)
-    if not ret:
+    if ret is None:
         return
     elif ret == 0:
         bot.sendMessage(update.message.chat_id,
@@ -146,6 +152,31 @@ def swap(bot, update):
                         text='Card format set to word on the front and definition on the back.')
     else:
         pass
+
+
+def ipa(bot, update):
+    ret = AnkiGenDB().swap_ipa(update.message.chat_id)
+    if ret is None:
+        return
+    elif ret == 0:
+        bot.sendMessage(update.message.chat_id,
+                        text='IPA translation will not be added to cards.')
+    elif ret == 1:
+        bot.sendMessage(update.message.chat_id,
+                        text='IPA translation will be added to cards.')
+    else:
+        pass
+
+
+def delete_card_sender(chat_id):
+    current_time = time.time()
+    with lock_card_senders:
+        try:
+            if current_time - card_senders[chat_id].last_access  >= delay - 0.1:
+                card_senders[chat_id].driver.quit()
+                del card_senders[chat_id]
+        except KeyError:
+            pass
 
 
 def button(bot, update):
@@ -188,11 +219,26 @@ def button_th(bot, update):
                     return
                 front = query.message.text
                 back = query.data.lower()
-                if db.is_order_reversed(query.message.chat_id) == 1: # Reverse
-                    CardSender(username, password).send_card(back, front, deck)
-                else: # Don't reverse
-                    CardSender(username, password).send_card(front, back, deck)
+                if db.get_if_add_phonetics(query.message.chat_id) != 0:
+                    ipa = to_ipa(back)
+                    if ipa != back: # ipa translation found
+                        back = "{} /{}/".format(back, ipa)
+                with lock_card_senders:
+                    try:
+                        card_sender = card_senders[query.message.chat_id]
+                        card_sender.last_access = time.time()
+                    except KeyError:
+                        card_sender = CardSender(username, password)
+                        card_senders[query.message.chat_id] = card_sender
+
+                    Timer(delay, delete_card_sender, [query.message.chat_id]).start()
+
+                    if db.is_order_reversed(query.message.chat_id) == 1: # Reverse
+                        card_sender.send_card(back, front, deck)
+                    else: # Don't reverse
+                        card_sender.send_card(front, back, deck)
             except Exception:
+                print(traceback.format_exc())
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct? Check if you can access https://ankiweb.net/ with your credentials",
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
@@ -235,6 +281,7 @@ def main():
     dp.add_handler(CommandHandler("user", user))
     dp.add_handler(CommandHandler("pass", passwd))
     dp.add_handler(CommandHandler("swap", swap))
+    dp.add_handler(CommandHandler("ipa", ipa))
     dp.add_handler(CommandHandler("deck", deck))
     dp.add_handler(MessageHandler(Filters.text, word))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
