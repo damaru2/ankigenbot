@@ -14,7 +14,7 @@ If you want [@ankigen_bot](https://t.me/ankigen_bot) to support another language
 
 ---
 ## Installation
-For executing this code, you need selenium, Chrome or Chromium,the telegram libraries and [translate shell](https://github.com/soimort/translate-shell/). 
+For executing this code, you need selenium, Chrome or Chromium,the telegram libraries and [translate shell](https://github.com/soimort/translate-shell/) and pronouncing (python library). 
 
 Create a file called `private_conf.py` with a variable `token_id` initialized to the toked_id of your telegram bot.
 
