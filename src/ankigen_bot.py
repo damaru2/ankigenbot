@@ -62,7 +62,7 @@ def word_th(bot, update):
     try:
         state = State(db.get_state(update.message.chat_id))
     except ValueError as e:
-        print(e)
+        print(traceback.format_exc())
         return
     if state == State.normal:
         concept = update.message.text.strip()
