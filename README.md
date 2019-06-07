@@ -3,7 +3,7 @@
 
 Anki is a very effective program to learn vocabulary, but anki does not have any way to **generate cards automatically**. Given a word in English, Spanish or French this bot will send you definitions with sentence examples and with a tap you can add them to your anki deck. 
 
-Anki + [@ankigen_bot](https://t.me/ankigen_bot) is the best way to learn vocabulary: __Send the bot every word you do not understand when you are reading, studying or interacting with people, it will not take you time and anki will make sure you do not ever forget all those words.__
+Anki + [@ankigen_bot](https://t.me/ankigen_bot) is the best way to learn vocabulary: ___Send the bot every word you do not understand when you are reading, studying or interacting with people, it will not take you time and anki will make sure you do not ever forget all those words.___
 
 ## Features
 
