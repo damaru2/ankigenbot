@@ -1,10 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
+import time
 import traceback
-#from selenium.webdriver.support.ui import WebDriverWait
-#from selenium.webdriver.common.action_chains import ActionChains
+
 
 import os
 
@@ -37,10 +39,12 @@ class CardSender:
     def send_card(self, front, back, deck):
         try:
             # Click on the "Add" tab
+            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a')))
             self.driver.find_element_by_xpath(
                             '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
 
             # Card type = Basic
+            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'models')))
             select = Select(self.driver.find_element_by_id('models'))
 
             try:
