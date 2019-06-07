@@ -6,6 +6,8 @@ import traceback
 #from selenium.webdriver.support.ui import WebDriverWait
 #from selenium.webdriver.common.action_chains import ActionChains
 
+import os
+
 
 class CardSender:
     url = 'https://ankiweb.net/account/login'
@@ -62,6 +64,8 @@ class CardSender:
                     '/html/body/main/p/button').click()
         except:
             print(traceback.format_exc())
+            if not os.path.isfile('screenshot_error.png'):
+                driver.save_screenshot("screenshot_error.png")
             raise
 
 

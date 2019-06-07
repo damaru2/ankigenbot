@@ -63,7 +63,10 @@ def word_th(bot, update):
         state = State(db.get_state(update.message.chat_id))
     except ValueError as e:
         print(traceback.format_exc())
-        return
+        if db.get_state(update.message.chat_id) is None:
+            db.insert_new_user(id_chat=update.message.chat_id)
+        state = State(db.get_state(update.message.chat_id))
+
     if state == State.normal:
         concept = update.message.text.strip()
         if not concept.isalpha():
