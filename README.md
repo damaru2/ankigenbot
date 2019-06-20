@@ -31,10 +31,26 @@ If you want [@ankigen_bot](https://t.me/ankigen_bot) to support another language
 
 ---
 ## Installation
-For executing this code, you need selenium, Chrome or Chromium,the telegram libraries and [translate shell](https://github.com/soimort/translate-shell/) and pronouncing (python library). 
+For executing this code, you will need to have:
 
-Create a file called `private_conf.py` with a variable `token_id` initialized to the toked_id of your telegram bot.
++ The following python libraries: selenium, the telegram-bot libraries and pronouncing. For instance, with pip it would be
+```
+pip3 install selenium pronouncing python-telegram-bot
+```
 
-Open `src/send_card.py` and edit `options.binary_location` so it points to your Chromium/Chrome binary file
++ [translate shell](https://github.com/soimort/translate-shell/), follow the instructions in the repository for installation.
 
-You also have to create in the root directory two folders called `data` and `log`.
++ Create a file called `private_conf.py` with a variable `token_id` initialized to the toked_id of your telegram bot. You also have to create in the root directory two folders called `data` and `log`. In commands:
+```
+git clone https://github.com/damaru2/ankigenbot
+cd ankigenbot
+mkdir data log
+echo "token_id = '<your_bot_token_id>'" > ./src/private_config.py
+```
+
++ Chrome (or Chromium). Open `src/send_card.py` and edit `options.binary_location` so it points to where your Chrome/Chromium binary file is.
+
+Once everything is installed you can run the bot from the root directory:
+```
+python3 src/ankigen_bot.py
+```
