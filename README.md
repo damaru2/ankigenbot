@@ -33,9 +33,9 @@ If you want [@ankigen_bot](https://t.me/ankigen_bot) to support another language
 ## Installation
 For executing this code, you will need to have:
 
-+ The following python libraries: selenium, the telegram-bot libraries and pronouncing. For instance, with pip it would be
++ The following python libraries: sqlite3, selenium, the telegram-bot libraries and pronouncing. For instance, with pip it would be
 ```
-pip3 install selenium pronouncing python-telegram-bot
+pip3 install sqlite3 selenium python-telegram-bot pronouncing
 ```
 
 + [translate shell](https://github.com/soimort/translate-shell/), follow the instructions in the repository for installation.
