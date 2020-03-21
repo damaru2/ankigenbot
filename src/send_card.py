@@ -69,7 +69,7 @@ class CardSender:
         except:
             print(traceback.format_exc())
             if not os.path.isfile('screenshot_error.png'):
-                driver.save_screenshot("screenshot_error.png")
+                self.driver.save_screenshot("screenshot_error.png")
             raise
 
 
