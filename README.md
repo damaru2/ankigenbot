@@ -14,7 +14,7 @@ Anki + [@ankigen_bot](https://t.me/ankigen_bot) is the best way to learn vocabul
 
 + Generate the cards with the front/back fields swapped with `/swap`. Definition is front by default.
 
-+ Include the pronunciation of the word in the flashcard with `/ipa`. Deactivated by default.
++ Include the pronunciation of the word in the flashcard with `/ipa`. Disabled by default.
 
 ---
 

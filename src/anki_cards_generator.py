@@ -52,7 +52,10 @@ class AnkiAutomatic:
                 prefix = new_prefix
                 line = self.normalize(tr.next_line())
             else:
-                line = self.normalize(line)
+                if line:
+                    line = self.normalize(line)
+                else:
+                    line = self.normalize(tr.next_line())
 
         return definitions
 
