@@ -53,6 +53,7 @@ class CardSender:
                 for option in select.options: #iterate over the options, place attribute value in list
                     if "Basic" in option.text:
                         select.select_by_visible_text(option.text)
+                        break
 
             # Write deck type
             deck_box = self.driver.find_element_by_id('deck')
