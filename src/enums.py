@@ -5,6 +5,8 @@ class Languages(Enum):
     en = 0
     es = 1
     fr = 2
+    de = 3
+    it = 4
 
 
 class State(Enum):

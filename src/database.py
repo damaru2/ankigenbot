@@ -105,7 +105,7 @@ class AnkiGenDB:
         update_query = '''UPDATE users
                           SET language = ?
                           WHERE id_chat = ?'''
-        self.conn.execute(update_query, (language.value, id_chat))
+        self.conn.execute(update_query, (language, id_chat))
         self.conn.commit()
 
     @lock

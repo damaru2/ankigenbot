@@ -46,7 +46,9 @@ def help(bot, update):
     bot.sendMessage(update.message.chat_id, parse_mode='Markdown',
         text='''I generate flashcards for [Anki](www.ankisrs.net).
 
-I'll send you *definitions* for the words that you send me, with its kind of word and a sentence example substituting the #word by ".....". If the language is english, variations of the word will be also removed.
+I'll send you *definitions* for the words that you send me, with its kind of word and a sentence example substituting the #word by ".....". If the language is English, variations of the word will be also removed.
+
+Use the commands /user, /deck, /pass to set up automatic uploading.
 
 If you set your anki *username* and *password*, I will automatically generate and upload a flashcard with the definition you select. Of course, *I need to store your username and password* in order to do that, I won't use your data for anything but I recommend you not to use the typical password you use everywhere!
 
@@ -138,7 +140,9 @@ def deck(bot, update):
 def language(bot, update):
     keyboard = [[InlineKeyboardButton("English", callback_data=str(Languages.en.value))],
             [InlineKeyboardButton("Español", callback_data=str(Languages.es.value))],
-            [InlineKeyboardButton("Français", callback_data=str(Languages.fr.value))]]
+            [InlineKeyboardButton("Français", callback_data=str(Languages.fr.value))],
+            [InlineKeyboardButton("Deutsch", callback_data=str(Languages.de.value))],
+            [InlineKeyboardButton("Italiano", callback_data=str(Languages.it.value))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text('Select a language', reply_markup=reply_markup)
 
@@ -162,10 +166,10 @@ def ipa(bot, update):
         return
     elif ret == 0:
         bot.sendMessage(update.message.chat_id,
-                        text='IPA translation will not be added to cards.')
+                        text='IPA translation will not be added to English cards.')
     elif ret == 1:
         bot.sendMessage(update.message.chat_id,
-                        text='IPA translation will be added to cards.')
+                        text='IPA translation is now enabled (but only for English cards).')
     else:
         pass
 
@@ -187,20 +191,8 @@ def button(bot, update):
 
 def button_th(bot, update):
     query = update.callback_query
-    if query.data == str(Languages.en.value):
-        AnkiGenDB().update_language(query.message.chat_id, Languages.en)
-        bot.editMessageText(text="Success! Language updated.",
-                chat_id=query.message.chat_id,
-                message_id=query.message.message_id)
-        return
-    elif query.data == str(Languages.es.value):
-        AnkiGenDB().update_language(query.message.chat_id, Languages.es)
-        bot.editMessageText(text="Success! Language updated.",
-                chat_id=query.message.chat_id,
-                message_id=query.message.message_id)
-        return
-    elif query.data == str(Languages.fr.value):
-        AnkiGenDB().update_language(query.message.chat_id, Languages.fr)
+    if query.data in [str(Languages.en.value), str(Languages.es.value), str(Languages.fr.value), str(Languages.de.value), str(Languages.it.value) ]:
+        AnkiGenDB().update_language(query.message.chat_id, int(query.data))
         bot.editMessageText(text="Success! Language updated.",
                 chat_id=query.message.chat_id,
                 message_id=query.message.message_id)
@@ -221,7 +213,8 @@ def button_th(bot, update):
                     return
                 front = query.message.text
                 back = query.data.lower()
-                if db.get_if_add_phonetics(query.message.chat_id) != 0:
+                print('{};{}'.format(db.get_language(query.message.chat_id), Languages.en.value))
+                if db.get_if_add_phonetics(query.message.chat_id) != 0 and db.get_language(query.message.chat_id) == Languages.en.value:
                     ipa = to_ipa(back)
                     if ipa != back: # ipa translation found
                         back = "{} /{}/".format(back, ipa)
@@ -280,6 +273,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("language", language))
+    dp.add_handler(CommandHandler("languages", language))
     dp.add_handler(CommandHandler("user", user))
     dp.add_handler(CommandHandler("pass", passwd))
     dp.add_handler(CommandHandler("swap", swap))

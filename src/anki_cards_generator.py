@@ -77,7 +77,12 @@ class AnkiAutomatic:
 
     def normalize(self, line):
         # Remove first and last "words" which are format tags
-        return line.rsplit('.', 1)[0].split(' ', 1)[1].strip()
+        res = line.split(' ', 1)[1].strip()[:-5]
+        if res[-1] == '.':
+            res = res[:-1]
+        return res
+
+        #return line.rsplit('.', 1)[0].split(' ', 1)[1].strip()
 
     def parse_example(self, example, concept, language):
         if example[:11] == '        - \"':   # If there is example
@@ -112,7 +117,9 @@ class AnkiAutomatic:
                 if concept[-1] == 'y':
                     example = remove_pattern(example, "{}ies".format(concept[:-1]))
                     example = remove_pattern(example, "{}ied".format(concept[:-1]))
-                example = remove_pattern(example, concept)
+            if language == 'es':
+                example = remove_pattern(example, '{}s'.format(concept))
+            example = remove_pattern(example, concept)
 
             return " (e.g. {})".format(example)
         else:
