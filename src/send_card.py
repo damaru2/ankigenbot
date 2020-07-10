@@ -29,6 +29,7 @@ class CardSender:
         options.add_argument('--disable-dev-shm-usage')
 
         options.binary_location = chrome_binary_location
+
         self.driver = webdriver.Chrome(chrome_options=options)
 
         self.driver.set_window_size(1920, 1080)

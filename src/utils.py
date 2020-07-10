@@ -1,6 +1,7 @@
 import pronouncing
 import re
 
+
 arpabet_to_ipa = {
 
         'AE1':'\'æ', 'AE2':'ˌæ',        'AE0':'æ',
@@ -71,3 +72,9 @@ def to_ipa(s):
             s[i] = "".join(aux)
     return "".join(s)
 
+
+reg = re.compile(r'([\[_\*`])')
+
+
+def escape_markdown(text):
+    return re.sub(reg, r'\\\1', text)
