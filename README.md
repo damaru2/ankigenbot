@@ -48,7 +48,10 @@ mkdir data log
 echo "token_id = '<your_bot_token_id>'" > ./src/private_config.py
 ```
 
-+ Chrome (or Chromium). Open `src/send_card.py` and edit `options.binary_location` so it points to where your Chrome/Chromium binary file is.
++ Chrome (or Chromium). Add a variable in `src/private_config.py` called `chrome_binary_location` and add the path so it points to where your Chrome/Chromium binary file is. For example
+```
+echo "chrome_binary_location='/usr/bin/google-chrome'" >> ./src/private_config.py
+```
 
 Once everything is installed you can run the bot from the root directory:
 ```
