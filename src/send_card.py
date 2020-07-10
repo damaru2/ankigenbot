@@ -4,6 +4,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+from private_conf import chrome_binary_location
+
 import time
 import traceback
 
@@ -26,7 +28,8 @@ class CardSender:
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
 
-        options.binary_location = "/usr/lib/chromium-browser/chromium-browser"
+        options.binary_location = chrome_binary_location
+
         self.driver = webdriver.Chrome(chrome_options=options)
 
         self.driver.set_window_size(1920, 1080)

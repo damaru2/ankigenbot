@@ -4,6 +4,14 @@ import os
 import re
 from subprocess import PIPE, Popen
 
+language_translate_shell_codes = {
+    "English": 'en',
+    "Español": 'es',
+    "Français": 'fr',
+    "Deutsch": 'de',
+    "Italiano": 'it',
+}
+
 
 class AnkiAutomatic:
 
@@ -13,6 +21,7 @@ class AnkiAutomatic:
         self.concept = concept
 
     def retrieve_defs(self, language='en'):
+        language = language_translate_shell_codes[language]
         concept = self.concept.lower()
         if concept.find(" ") != -1:
             return
@@ -97,7 +106,7 @@ class AnkiAutomatic:
                 return regex.sub("\g<1>{}\g<2>".format(dots), example)
 
             # remove concept variations
-            if language == 'en':
+            if language == 'English':
                 example = remove_pattern(example, '{}s'.format(concept))
                 example = remove_pattern(example, "{}es".format(concept))
 
@@ -117,7 +126,7 @@ class AnkiAutomatic:
                 if concept[-1] == 'y':
                     example = remove_pattern(example, "{}ies".format(concept[:-1]))
                     example = remove_pattern(example, "{}ied".format(concept[:-1]))
-            if language == 'es':
+            if language == 'Español':
                 example = remove_pattern(example, '{}s'.format(concept))
             example = remove_pattern(example, concept)
 

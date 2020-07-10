@@ -12,10 +12,10 @@ import time
 
 from private_conf import token_id
 from anki_cards_generator import AnkiAutomatic
-from utils import to_ipa
+from utils import to_ipa, escape_markdown
 from send_card import CardSender
 from database import AnkiGenDB
-from enums import State, Languages
+from enums import State, Languages, dict_state_to_lang
 
 # Enable logging
 logging.basicConfig(
@@ -27,11 +27,12 @@ logger = logging.getLogger(__name__)
 log_errors = './log/errors.log'
 
 # Create the EventHandler and pass it your bot's token.
-updater = Updater(token_id)
+updater = Updater(token_id, use_context=True)
 
 card_senders = dict()
 lock_card_senders = Lock()
 delay = 10
+default_deck_name = 'Vocabulary @ankigen_bot'
 
 def start(bot, update):
     bot.sendMessage(update.message.chat_id,
@@ -43,21 +44,32 @@ def start(bot, update):
 
 
 def help(bot, update):
-    bot.sendMessage(update.message.chat_id, parse_mode='Markdown',
-        text='''I generate flashcards for [Anki](www.ankisrs.net).
-
-I'll send you *definitions* for the words that you send me, with its kind of word and a sentence example substituting the #word by ".....". If the language is English, variations of the word will be also removed.
-
-Use the commands /user, /deck, /pass to set up automatic uploading.
-
-If you set your anki *username* and *password*, I will automatically generate and upload a flashcard with the definition you select. Of course, *I need to store your username and password* in order to do that, I won't use your data for anything but I recommend you not to use the typical password you use everywhere!
-
-Code on [GitHub](https://github.com/damaru2/ankigenbot). You can also find [here](https://github.com/damaru2/anki_cards_generator) a script to generate flashcards from your computer (without compromising your data) by just copying the word and calling the script ''')
+    with open('data/help.txt') as f:
+        text = f.read()
+    bot.sendMessage(update.message.chat_id, parse_mode='Markdown', text=text)
 
 
 def word(bot, update):
     Thread(target=word_th, args=(bot, update)).start()
 
+
+def introduced_word(bot, update, lang, concept):
+    db = AnkiGenDB()
+    if not concept.isalpha():
+        bot.sendMessage(update.message.chat_id,
+            text="Write only one word")
+    else:
+        defs = AnkiAutomatic(concept).retrieve_defs(lang.name)
+        if defs is None:
+            bot.sendMessage(update.message.chat_id,
+                text='No definitions found')
+            return
+        if_add_phonetics = db.get_if_add_phonetics(update.message.chat_id)
+        for definition in defs:
+            keyboard = [[InlineKeyboardButton("Add to anki", callback_data="{}|{}".format(lang.value, concept)),
+                     InlineKeyboardButton("Cancel", callback_data='-1')]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            update.message.reply_text(definition, reply_markup=reply_markup)
 
 def word_th(bot, update):
     db = AnkiGenDB()
@@ -70,22 +82,8 @@ def word_th(bot, update):
 
     if state == State.normal:
         concept = update.message.text.strip()
-        if not concept.isalpha():
-            bot.sendMessage(update.message.chat_id,
-                text="Write only one word")
-        else:
-            lang = Languages(db.get_language(update.message.chat_id))
-            defs = AnkiAutomatic(concept).retrieve_defs(lang.name)
-            if defs is None:
-                bot.sendMessage(update.message.chat_id,
-                    text='No definitions found')
-                return
-            if_add_phonetics = db.get_if_add_phonetics(update.message.chat_id)
-            for definition in defs:
-                keyboard = [[InlineKeyboardButton("Add to anki", callback_data=concept),
-                         InlineKeyboardButton("Cancel", callback_data='-1')]]
-                reply_markup = InlineKeyboardMarkup(keyboard)
-                update.message.reply_text(definition, reply_markup=reply_markup)
+        lang = Languages(db.get_language(update.message.chat_id))
+        introduced_word(bot, update, lang, concept)
     elif state == State.set_user:
         try:
             db.update_username(update.message.chat_id, update.message.text)
@@ -104,15 +102,15 @@ def word_th(bot, update):
             return
         bot.sendMessage(update.message.chat_id,
             text="Success! Password updated.")
-    elif state == State.set_deck:
+    elif state in dict_state_to_lang:
         try:
-            db.update_deck(update.message.chat_id, update.message.text)
+            db.update_deck_name(update.message.chat_id, update.message.text, dict_state_to_lang[state])
         except:
             bot.sendMessage(update.message.chat_id,
                 text="Sorry, something went wrong")
             return
         bot.sendMessage(update.message.chat_id,
-            text="Success! Deck updated.")
+            text="Success! Deck name updated.")
     else:
         print('not a valid state')
 
@@ -131,20 +129,28 @@ def passwd(bot, update):
 
 
 def deck(bot, update):
-    bot.sendMessage(update.message.chat_id,
-        text="Send me the deck name")
+    keyboard = [[InlineKeyboardButton(lang.name, callback_data="deck{}".format(lang.value))] for lang in dict_state_to_lang.values()]
+    keyboard.append([InlineKeyboardButton('Cancel', callback_data="deck{}".format(-1))])
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
-    AnkiGenDB().update_state(update.message.chat_id, State.set_deck)
+    deck_names = AnkiGenDB().get_all_deck_names(update.message.chat_id)
+    if deck_names is None:
+        deck_names = ''
+    else:
+        deck_names = '\nCurrent deck names are:\n' + \
+                     ''.join(['\n- *{}*: {}'.format(Languages(language).name, escape_markdown(deck_name)) for deck_name, language in deck_names])
+    text = 'Select a language to set a deck name for that language.{}'.format(deck_names)
+    update.message.reply_text(text, reply_markup=reply_markup, parse_mode='Markdown')
 
 
 def language(bot, update):
-    keyboard = [[InlineKeyboardButton("English", callback_data=str(Languages.en.value))],
-            [InlineKeyboardButton("Español", callback_data=str(Languages.es.value))],
-            [InlineKeyboardButton("Français", callback_data=str(Languages.fr.value))],
-            [InlineKeyboardButton("Deutsch", callback_data=str(Languages.de.value))],
-            [InlineKeyboardButton("Italiano", callback_data=str(Languages.it.value))]]
+    keyboard = [[InlineKeyboardButton(lang.name, callback_data="{}".format(lang.value))] for lang in dict_state_to_lang.values()]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('Select a language', reply_markup=reply_markup)
+    lang = AnkiGenDB().get_language(update.message.chat_id)
+    reminder_interface='\nRemember you can add words in a language that is not the default one by adding /en /es /fr /de or /it before them. Like\n\n/es amigo'
+    update.message.reply_text('*{}* is the current default language. Which should be the new default language? {}'.format(Languages(lang).name, reminder_interface),
+                              reply_markup=reply_markup, parse_mode='Markdown')
+
 
 def swap(bot, update):
     ret = AnkiGenDB().reverse_order(update.message.chat_id)
@@ -186,35 +192,61 @@ def delete_card_sender(chat_id):
 
 
 def button(bot, update):
+    #button_th(bot, update)
     Thread(target=button_th, args=(bot, update)).start()
 
 
 def button_th(bot, update):
     query = update.callback_query
-    if query.data in [str(Languages.en.value), str(Languages.es.value), str(Languages.fr.value), str(Languages.de.value), str(Languages.it.value) ]:
+    language_codes = [str(lang.value) for lang in dict_state_to_lang.values()]
+    if query.data in language_codes:
         AnkiGenDB().update_language(query.message.chat_id, int(query.data))
         bot.editMessageText(text="Success! Language updated.",
                 chat_id=query.message.chat_id,
                 message_id=query.message.message_id)
         return
+    if query.data[:4] == 'deck' and (query.data[4:] == '-1' or query.data[4:] in language_codes):
+        if query.data[4:] == '-1':
+            bot.editMessageText(text="No deck name was changed.",
+                                chat_id=query.message.chat_id,
+                                message_id=query.message.message_id)
+            return
+        state = None
+        for st,lang in dict_state_to_lang.items():
+            if str(lang.value) == query.data[4:]:
+                state = st
+                break
+        AnkiGenDB().update_state(query.message.chat_id, state)
+        bot.editMessageText(text="Send me the deck name for {}.".format(Languages(int(query.data[4:])).name),
+                            chat_id=query.message.chat_id,
+                            message_id=query.message.message_id)
+        return
     try:
         if query.data != '-1':
+            db = AnkiGenDB()
+            spl = query.data.split('|', 1)[0]
+            deck = None
+            if spl in language_codes:
+                deck = db.get_deck_name(query.message.chat_id, spl)
+            if deck is None:
+                deck = default_deck_name
             bot.editMessageText(text="{}\n*Uploading card to your anki deck*".format(query.message.text),
-                    parse_mode='Markdown',
-                    chat_id=query.message.chat_id,
-                    message_id=query.message.message_id)
+                parse_mode='Markdown',
+                chat_id=query.message.chat_id,
+                message_id=query.message.message_id)
             try:
-                db = AnkiGenDB()
-                username, password, deck = db.get_data(query.message.chat_id)
+                username, password = db.get_data(query.message.chat_id)
                 if username is None or password is None or deck is None:
-                    bot.editMessageText(text="I can't send your data because I don't have your credentials or deck name",
+                    bot.editMessageText(text="I can't send your data because I don't have your credentials",
                         chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
                     return
                 front = query.message.text
-                back = query.data.lower()
-                print('{};{}'.format(db.get_language(query.message.chat_id), Languages.en.value))
-                if db.get_if_add_phonetics(query.message.chat_id) != 0 and db.get_language(query.message.chat_id) == Languages.en.value:
+                if '|' in query.data:
+                    back = query.data.split('|', 1)[1]
+                else:
+                    back = query.data.lower()
+                if db.get_if_add_phonetics(query.message.chat_id) != 0 and db.get_language(query.message.chat_id) == Languages.English.value:
                     ipa = to_ipa(back)
                     if ipa != back: # ipa translation found
                         back = "{} /{}/".format(back, ipa)
@@ -260,6 +292,46 @@ def button_th(bot, update):
         raise
 
 
+def word_en(bot, update):
+    try:
+        concept = update.message.text.split(' ', 1)[1]
+    except IndexError:
+        return
+    introduced_word(bot, update, Languages.English, concept)
+
+
+def word_es(bot, update):
+    try:
+        concept = update.message.text.split(' ', 1)[1]
+    except IndexError:
+        return
+    introduced_word(bot, update, Languages.Español, concept)
+
+
+def word_fr(bot, update):
+    try:
+        concept = update.message.text.split(' ', 1)[1]
+    except IndexError:
+        return
+    introduced_word(bot, update, Languages.Français, concept)
+
+
+def word_de(bot, update):
+    try:
+        concept = update.message.text.split(' ', 1)[1]
+    except IndexError:
+        return
+    introduced_word(bot, update, Languages.Deutsch, concept)
+
+
+def word_it(bot, update):
+    try:
+        concept = update.message.text.split(' ', 1)[1]
+    except IndexError:
+        return
+    introduced_word(bot, update, Languages.Italiano, concept)
+
+
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 
@@ -279,6 +351,14 @@ def main():
     dp.add_handler(CommandHandler("swap", swap))
     dp.add_handler(CommandHandler("ipa", ipa))
     dp.add_handler(CommandHandler("deck", deck))
+
+
+    dp.add_handler(CommandHandler("en", word_en))
+    dp.add_handler(CommandHandler("es", word_es))
+    dp.add_handler(CommandHandler("fr", word_fr))
+    dp.add_handler(CommandHandler("de", word_de))
+    dp.add_handler(CommandHandler("it", word_it))
+
     dp.add_handler(MessageHandler(Filters.text, word))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
