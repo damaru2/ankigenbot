@@ -10,7 +10,7 @@ from threading import Thread, Timer, Lock
 import traceback
 import time
 
-from private_conf import token_id
+from private_conf import token_id, message_updated
 from anki_cards_generator import AnkiAutomatic
 from utils import to_ipa
 from send_card import CardSender
