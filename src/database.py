@@ -67,7 +67,8 @@ class AnkiGenDB:
     @lock
     def get_all_deck_names(self, id_chat):
         query = '''SELECT deck, language FROM deck_names
-                    WHERE id_chat = ?'''
+                    WHERE id_chat = ?
+                    ORDER BY language ASC'''
         return self.cur.execute(query, (id_chat,)).fetchall()
     @lock
     def get_deck_name(self, id_chat, lang_code):

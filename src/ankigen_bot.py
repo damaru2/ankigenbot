@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 log_errors = './log/errors.log'
 
 # Create the EventHandler and pass it your bot's token.
-updater = Updater(token_id, use_context=True)
+updater = Updater(token_id, use_context=False)
 
 card_senders = dict()
 lock_card_senders = Lock()
@@ -129,7 +129,8 @@ def passwd(bot, update):
 
 
 def deck(bot, update):
-    keyboard = [[InlineKeyboardButton(lang.name, callback_data="deck{}".format(lang.value))] for lang in dict_state_to_lang.values()]
+    langs = sorted(list(dict_state_to_lang.values()),key=lambda x: x.value)
+    keyboard = [[InlineKeyboardButton(lang.name, callback_data="deck{}".format(lang.value))] for lang in langs ]
     keyboard.append([InlineKeyboardButton('Cancel', callback_data="deck{}".format(-1))])
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -144,7 +145,8 @@ def deck(bot, update):
 
 
 def language(bot, update):
-    keyboard = [[InlineKeyboardButton(lang.name, callback_data="{}".format(lang.value))] for lang in dict_state_to_lang.values()]
+    langs = sorted(list(dict_state_to_lang.values()),key=lambda x: x.value)
+    keyboard = [[InlineKeyboardButton(lang.name, callback_data="{}".format(lang.value))] for lang in langs]
     reply_markup = InlineKeyboardMarkup(keyboard)
     lang = AnkiGenDB().get_language(update.message.chat_id)
     reminder_interface='\nRemember you can add words in a language that is not the default one by adding /en /es /fr /de or /it before them. Like\n\n/es amigo'
