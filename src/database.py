@@ -143,7 +143,7 @@ class AnkiGenDB:
 
     @lock
     def insert_new_user(self, id_chat, username=None, password=None, language=0, state=State.normal.value, reverse=0, ipa=0):
-        insert_new_user = '''INSERT INTO users VALUES (?,?,?,?,?,?,?,?)'''
+        insert_new_user = '''INSERT INTO users VALUES (?,?,?,?,?,?,?)'''
         self.conn.execute(insert_new_user, (id_chat, username, password, language, state, reverse, ipa))
         self.conn.commit()
 

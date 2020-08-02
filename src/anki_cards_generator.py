@@ -106,7 +106,7 @@ class AnkiAutomatic:
                 return regex.sub("\g<1>{}\g<2>".format(dots), example)
 
             # remove concept variations
-            if language == 'English':
+            if language == 'en':
                 example = remove_pattern(example, '{}s'.format(concept))
                 example = remove_pattern(example, "{}es".format(concept))
 
@@ -126,7 +126,7 @@ class AnkiAutomatic:
                 if concept[-1] == 'y':
                     example = remove_pattern(example, "{}ies".format(concept[:-1]))
                     example = remove_pattern(example, "{}ied".format(concept[:-1]))
-            if language == 'Español':
+            if language == 'es':
                 example = remove_pattern(example, '{}s'.format(concept))
             example = remove_pattern(example, concept)
 
