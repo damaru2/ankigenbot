@@ -58,6 +58,7 @@ def introduced_word(bot, update, lang, concept):
         bot.sendMessage(update.message.chat_id,
             text="Write only one word")
     else:
+        concept = concept.lower()
         defs = AnkiAutomatic(concept).retrieve_defs(lang.name)
         if defs is None:
             bot.sendMessage(update.message.chat_id,

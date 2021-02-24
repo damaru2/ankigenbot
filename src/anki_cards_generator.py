@@ -87,7 +87,7 @@ class AnkiAutomatic:
     def normalize(self, line):
         # Remove first and last "words" which are format tags
         res = line.split(' ', 1)[1].strip()[:-5]
-        if res[-1] == '.':
+        if len(res) > 0 and res[-1] == '.':
             res = res[:-1]
         return res
 
