@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import logging
@@ -149,8 +148,8 @@ def language(bot, update):
     keyboard = [[InlineKeyboardButton(lang.name, callback_data="{}".format(lang.value))] for lang in langs]
     reply_markup = InlineKeyboardMarkup(keyboard)
     lang = AnkiGenDB().get_language(update.message.chat_id)
-    reminder_interface='\nRemember you can add words in a language that is not the default one by adding /en /es /fr /de or /it before them. Like\n\n/es amigo'
-    update.message.reply_text('*{}* is the current default language. Which should be the new default language? {}'.format(Languages(lang).name, reminder_interface),
+    reminder_interface='\nYou can always use /en /es /fr /de or /it before a word for words in a language that is not the default one. Examples:\n/es amigo\n/en friend'
+    update.message.reply_text('Pick a new default language. Current is *{}*.{}'.format(Languages(lang).name, reminder_interface),
                               reply_markup=reply_markup, parse_mode='Markdown')
 
 
