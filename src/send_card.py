@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 from private_conf import chrome_binary_location
 
@@ -46,8 +47,14 @@ class CardSender:
             self.driver.find_element_by_xpath(
                             '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
 
-            # Card type = Basic
+            # Wait for all the elements used to appear
             WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'models')))
+            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'deck')))
+            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'f0')))
+            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'f1')))
+
+
+            # Card type = Basic
             select = Select(self.driver.find_element_by_id('models'))
 
             try:
@@ -58,10 +65,12 @@ class CardSender:
                         select.select_by_visible_text(option.text)
                         break
 
-            # Write deck type
-            deck_box = self.driver.find_element_by_id('deck')
-            deck_box.clear()
-            deck_box.send_keys(deck)
+            # Select deck type (previously we could write here)
+            try:
+                select = Select(self.driver.find_element_by_id('deck'))
+                select.select_by_visible_text(deck)
+            except NoSuchElementException:
+                raise NoDeckFoundError(deck)
 
             # Fill fields
             self.driver.find_element_by_xpath('//*[@id="f0"]').send_keys(front)
@@ -76,6 +85,10 @@ class CardSender:
                 self.driver.save_screenshot("screenshot_error.png")
             raise
 
+
+class NoDeckFoundError(Exception):
+    def __init__(self, deck):
+        self.deck = deck
 
 if __name__ == "__main__":
     cs = CardSender('aaa@gmail.com', 'mypassword')

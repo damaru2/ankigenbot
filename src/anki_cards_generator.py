@@ -36,7 +36,7 @@ class AnkiAutomatic:
         prefix = self.pref(aux)
         if prefix == "":
             return
-        line = self.normalize(tr.next_line())
+        line = self.normalize(tr.next_line(), concept, language)
         n_def = 0  # Number of definitions
         definitions = []
         while True:
@@ -59,12 +59,12 @@ class AnkiAutomatic:
             new_prefix = self.pref(line)
             if new_prefix != "":  # Change of prefix
                 prefix = new_prefix
-                line = self.normalize(tr.next_line())
+                line = self.normalize(tr.next_line(), concept, language)
             else:
                 if line:
-                    line = self.normalize(line)
+                    line = self.normalize(line, concept, language)
                 else:
-                    line = self.normalize(tr.next_line())
+                    line = self.normalize(tr.next_line(), concept, language)
 
         return definitions
 
@@ -84,52 +84,55 @@ class AnkiAutomatic:
             "conjunction": "(conj.) "
         }.get(x, "")   # "" is default if x not found
 
-    def normalize(self, line):
+    def normalize(self, line, concept, language):
         # Remove first and last "words" which are format tags
         res = line.split(' ', 1)[1].strip()[:-5]
         if len(res) > 0 and res[-1] == '.':
             res = res[:-1]
+        res = self.remove_concept_or_derivatives(res, concept, language)
         return res
 
         #return line.rsplit('.', 1)[0].split(' ', 1)[1].strip()
+
+    def remove_concept_or_derivatives(self, line, concept, language):
+        def remove_pattern(line, concept):
+            # This is so words that contain concept or a conjugation of it
+            # as a substring are not removed
+            dots = "....."
+            regex = re.compile("(^|[^a-zA-Z]){}([^a-zA-Z]|$)".format(concept), re.IGNORECASE)
+            return regex.sub("\g<1>{}\g<2>".format(dots), line)
+
+        # remove concept variations
+        if language == 'en':
+            line = remove_pattern(line, '{}s'.format(concept))
+            line = remove_pattern(line, "{}es".format(concept))
+
+            if concept[-1] == 'e':
+                line = remove_pattern(line, "{}d".format(concept))
+                line = remove_pattern(line, "{}ing".format(concept[:-1]))
+
+            line = remove_pattern(line, "{}ed".format(concept))
+            line = remove_pattern(line, "{}{}ed".format(concept, concept[-1]))
+            line = remove_pattern(line, "{}ing".format(concept))
+            line = remove_pattern(line, "{}{}ing".format(concept, concept[-1]))
+            if concept[-1] == 'f':
+                line = remove_pattern(line, "{}ves".format(concept[:-1]))
+            if concept[-1] == 'fe':
+                line = remove_pattern(line, "{}ves".format(concept[:-2]))
+                #line = remove_pattern(line, "{}ing".format(concept[:1], concept[:-1]))
+            if concept[-1] == 'y':
+                line = remove_pattern(line, "{}ies".format(concept[:-1]))
+                line = remove_pattern(line, "{}ied".format(concept[:-1]))
+        if language == 'es':
+            line = remove_pattern(line, '{}s'.format(concept))
+        line = remove_pattern(line, concept)
+        return line
 
     def parse_example(self, example, concept, language):
         if example[:11] == '        - \"':   # If there is example
             # This removes the concept or variations of it
             example = example.split("\"")[1]
-
-            def remove_pattern(example, concept):
-                # This is so words that contain concept or a conjugation of it
-                # as a substring are not removed
-                dots = "....."
-                regex = re.compile("(^|[^a-zA-Z]){}([^a-zA-Z]|$)".format(concept), re.IGNORECASE)
-                return regex.sub("\g<1>{}\g<2>".format(dots), example)
-
-            # remove concept variations
-            if language == 'en':
-                example = remove_pattern(example, '{}s'.format(concept))
-                example = remove_pattern(example, "{}es".format(concept))
-
-                if concept[-1] == 'e':
-                    example = remove_pattern(example, "{}d".format(concept))
-                    example = remove_pattern(example, "{}ing".format(concept[:-1]))
-
-                example = remove_pattern(example, "{}ed".format(concept))
-                example = remove_pattern(example, "{}{}ed".format(concept, concept[-1]))
-                example = remove_pattern(example, "{}ing".format(concept))
-                example = remove_pattern(example, "{}{}ing".format(concept, concept[-1]))
-                if concept[-1] == 'f':
-                    example = remove_pattern(example, "{}ves".format(concept[:-1]))
-                if concept[-1] == 'fe':
-                    example = remove_pattern(example, "{}ves".format(concept[:-2]))
-                    #example = remove_pattern(example, "{}ing".format(concept[:1], concept[:-1]))
-                if concept[-1] == 'y':
-                    example = remove_pattern(example, "{}ies".format(concept[:-1]))
-                    example = remove_pattern(example, "{}ied".format(concept[:-1]))
-            if language == 'es':
-                example = remove_pattern(example, '{}s'.format(concept))
-            example = remove_pattern(example, concept)
-
+            example = self.remove_concept_or_derivatives(example, concept, language)
             return " (e.g. {})".format(example)
         else:
             return ''
