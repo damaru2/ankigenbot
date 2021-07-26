@@ -231,7 +231,11 @@ def button_th(bot, update):
             if spl in language_codes:
                 deck = db.get_deck_name(query.message.chat_id, spl)
             if deck is None:
-                deck = default_deck_name
+                bot.editMessageText(text="You need to specify the name of an existing deck with /deck".format(query.message.text),
+                    parse_mode='Markdown',
+                    chat_id=query.message.chat_id,
+                    message_id=query.message.message_id)
+                return
             bot.editMessageText(text="{}\n*Uploading card to your anki deck*".format(query.message.text),
                 parse_mode='Markdown',
                 chat_id=query.message.chat_id,
