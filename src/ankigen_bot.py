@@ -12,7 +12,7 @@ import time
 from private_conf import token_id
 from anki_cards_generator import AnkiAutomatic
 from utils import to_ipa, escape_markdown
-from send_card import CardSender
+from send_card import CardSender, NoDeckFoundError
 from database import AnkiGenDB
 from enums import State, Languages, dict_state_to_lang
 
@@ -265,6 +265,13 @@ def button_th(bot, update):
                         card_sender.send_card(back, front, deck)
                     else: # Don't reverse
                         card_sender.send_card(front, back, deck)
+            except NoDeckFoundError as e:
+                print(traceback.format_exc())
+                bot.editMessageText(
+                    text="Could not find the deck \"{}\". Check it exists or use /deck to change the name of the deck I should use for this language".format(e.deck),
+                    chat_id=query.message.chat_id,
+                    message_id=query.message.message_id)
+                return
             except Exception:
                 print(traceback.format_exc())
                 bot.editMessageText(text="Could not connect to ankiweb. Is your username and password correct? Check if you can access https://ankiweb.net/ with your credentials",
@@ -335,6 +342,7 @@ def word_it(bot, update):
 
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
+
 
 
 def main():
