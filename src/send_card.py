@@ -17,7 +17,7 @@ import os
 class CardSender:
     url = 'https://ankiweb.net/account/login'
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, card_type):
         self.driver = None
 
         self.last_access = time.time()
@@ -39,8 +39,10 @@ class CardSender:
         usr_box.send_keys(username)
         pass_box = self.driver.find_element_by_id('password')
         pass_box.send_keys('{}\n'.format(password))
+        self.card_type = card_type
 
-    def send_card(self, front, back, deck):
+    def send_card(self, front, back, deck, tags):
+        ret = None
         try:
             # Click on the "Add" tab
             WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a')))
@@ -53,17 +55,23 @@ class CardSender:
             WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'f0')))
             WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'f1')))
 
-
-            # Card type = Basic
             select = Select(self.driver.find_element_by_id('models'))
+            if self.card_type:
+                try:
+                    select.select_by_visible_text(self.card_type)
+                except:
+                    ret = 'The card type ```{}``` could not be found, so I am using the default Basic card type. Consider changing the /cardtype to the default value (by sending /cardtype twice) or to another card type that exists in your Anki'.format(self.card_type)
+                    self.card_type = ""
 
-            try:
-                select.select_by_visible_text("Basic")
-            except:
-                for option in select.options: #iterate over the options, place attribute value in list
-                    if "Basic" in option.text:
-                        select.select_by_visible_text(option.text)
-                        break
+            if not self.card_type:
+                # Card type = Basic
+                try:
+                    select.select_by_visible_text("Basic")
+                except:
+                    for option in select.options: #iterate over the options, place attribute value in list
+                        if "Basic" in option.text:
+                            select.select_by_visible_text(option.text)
+                            break
 
             # Select deck type (previously we could write here)
             try:
@@ -71,6 +79,9 @@ class CardSender:
                 select.select_by_visible_text(deck)
             except NoSuchElementException:
                 raise NoDeckFoundError(deck)
+
+            if tags:
+                self.driver.find_element_by_id('f-1').send_keys(tags)
 
             # Fill fields
             self.driver.find_element_by_xpath('//*[@id="f0"]').send_keys(front)
@@ -84,6 +95,7 @@ class CardSender:
             if not os.path.isfile('screenshot_error.png'):
                 self.driver.save_screenshot("screenshot_error.png")
             raise
+        return ret
 
 
 class NoDeckFoundError(Exception):

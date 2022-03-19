@@ -33,6 +33,7 @@ class AnkiGenDB:
 
     def __create_tables(self):
         # id_selected_game is the id_group of the game selected by the user
+
         self.conn.execute(
             '''CREATE TABLE users (
                 id_chat             INTEGER PRIMARY KEY,
@@ -41,36 +42,42 @@ class AnkiGenDB:
                 language            INTEGER,
                 state               INTEGER,
                 reverse_order       INTEGER DEFAULT 0,
-                ipa                 INTEGER DEFAULT 0)
+                ipa                 INTEGER DEFAULT 0,
+                card_type                 STRING DEFAULT "")
                 ''')
         self.conn.execute(
             '''CREATE TABLE deck_names (
                 id_chat             INTEGER,
                 language            INTEGER,
-                deck                STRING,
+                deck                STRING DEFAULT "",
+                tags                STRING DEFAULT "",
                 PRIMARY KEY(id_chat, language)
             )
                 ''')
 
         self.conn.commit()
 
-    @lock
     def get_data(self, id_chat):
-        query = '''SELECT username, password FROM users
+        query = '''SELECT username, password, card_type FROM users
                     WHERE id_chat = ?'''
         ret = self.cur.execute(query, (id_chat,)).fetchone()
         if not ret:
             return None
         else:
-            return (ret[0], ret[1])
+            return (ret[0], ret[1], ret[2])
 
-    @lock
     def get_all_deck_names(self, id_chat):
         query = '''SELECT deck, language FROM deck_names
                     WHERE id_chat = ?
                     ORDER BY language ASC'''
         return self.cur.execute(query, (id_chat,)).fetchall()
-    @lock
+
+    def get_all_tags(self, id_chat):
+        query = '''SELECT tags, language FROM deck_names
+                    WHERE id_chat = ?
+                    ORDER BY language ASC'''
+        return self.cur.execute(query, (id_chat,)).fetchall()
+
     def get_deck_name(self, id_chat, lang_code):
         query = '''SELECT deck FROM deck_names
                     WHERE id_chat = ? AND language = ?'''
@@ -79,7 +86,16 @@ class AnkiGenDB:
             return None
         else:
             return ret[0]
-    @lock
+
+    def get_tags(self, id_chat, lang_code):
+        query = '''SELECT tags FROM deck_names
+                    WHERE id_chat = ? AND language = ?'''
+        ret = self.cur.execute(query, (id_chat,int(lang_code))).fetchone()
+        if not ret:
+            return None
+        else:
+            return ret[0]
+
     def get_language(self, id_chat):
         query = '''SELECT language FROM users
                     WHERE id_chat=?'''
@@ -89,7 +105,6 @@ class AnkiGenDB:
         else:
             return ret[0]
 
-    @lock
     def get_state(self, id_chat):
         query = '''SELECT state FROM users
                     WHERE id_chat=?'''
@@ -116,11 +131,33 @@ class AnkiGenDB:
         self.conn.commit()
 
     @lock
+    def update_card_type(self, id_chat, card_type):
+        update_query = '''UPDATE users
+                          SET card_type = ?, state = ?
+                          WHERE id_chat = ?'''
+        self.conn.execute(update_query, (card_type, State.normal.value, id_chat))
+        self.conn.commit()
+
+    @lock
     def update_deck_name(self, id_chat, deck, lang):
-        insert_or_update_query = '''INSERT OR REPLACE INTO deck_names(id_chat, language, deck)
-                           VALUES (?,?,?)
-                           '''
-        self.conn.execute(insert_or_update_query, (id_chat, lang.value, deck))
+        if self.get_deck_name(id_chat, lang.value) is not None:
+            update_query = '''UPDATE deck_names SET deck = ? WHERE id_chat = ? and language = ?'''
+            self.conn.execute(update_query, (deck, id_chat, lang.value))
+        else:
+            insert_or_update_query = '''INSERT OR REPLACE INTO deck_names(id_chat, language, deck) VALUES (?,?,?)'''
+            self.conn.execute(insert_or_update_query, (id_chat, lang.value, deck))
+        update_query = '''UPDATE users SET state = ? WHERE id_chat = ?'''
+        self.conn.execute(update_query, (State.normal.value, id_chat))
+        self.conn.commit()
+
+    @lock
+    def update_tags(self, id_chat, tags, lang):
+        if self.get_tags(id_chat, lang.value) is not None:
+            update_query = '''UPDATE deck_names SET tags = ? WHERE id_chat = ? and language = ?'''
+            self.conn.execute(update_query, (tags, id_chat, lang.value))
+        else:
+            insert_or_update_query = '''INSERT OR REPLACE INTO deck_names(id_chat, language, tags) VALUES (?,?,?)'''
+            self.conn.execute(insert_or_update_query, (id_chat, lang.value, tags))
         update_query = '''UPDATE users SET state = ? WHERE id_chat = ?'''
         self.conn.execute(update_query, (State.normal.value, id_chat))
         self.conn.commit()
@@ -147,6 +184,7 @@ class AnkiGenDB:
         self.conn.execute(insert_new_user, (id_chat, username, password, language, state, reverse, ipa))
         self.conn.commit()
 
+    @lock
     def reverse_order(self, id_chat):
         rev = self.is_order_reversed(id_chat)
         if rev is None:
@@ -160,6 +198,7 @@ class AnkiGenDB:
         self.conn.commit()
         return rev
 
+    @lock
     def swap_ipa(self, id_chat):
         rev = self.get_if_add_phonetics(id_chat)
         if rev is None:
@@ -172,6 +211,7 @@ class AnkiGenDB:
         self.conn.execute(update_query, (rev, id_chat))
         self.conn.commit()
         return rev
+
 
     def is_order_reversed(self, id_chat):
         query = '''SELECT reverse_order FROM users
@@ -193,6 +233,10 @@ class AnkiGenDB:
 
 
 if __name__ == "__main__":
+    #db = AnkiGenDB()
+    #db.conn.execute('''ALTER TABLE deck_names ADD COLUMN tags STRING DEFAULT ""''')
+    #db.conn.commit()
+    #exit(0)
     pass
     db = AnkiGenDB()
     query = '''SELECT id_chat, username, password, deck, language, state, reverse_order, ipa FROM users'''
@@ -207,5 +251,3 @@ if __name__ == "__main__":
             db2.conn.execute(insert_new_deck, (id_chat, language, deck))
     db2.conn.commit()
 
-    #db.conn.execute('''ALTER TABLE users ADD COLUMN ipa INTEGER DEFAULT 0''')
-    #db.conn.commit()

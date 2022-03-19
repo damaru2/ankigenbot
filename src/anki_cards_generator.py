@@ -10,6 +10,8 @@ language_translate_shell_codes = {
     "Français": 'fr',
     "Deutsch": 'de',
     "Italiano": 'it',
+    "Japanese": 'ja',
+    "Russian": 'ru',
 }
 
 
@@ -25,7 +27,8 @@ class AnkiAutomatic:
         concept = self.concept.lower()
         if concept.find(" ") != -1:
             return
-        query = "trans -no-auto -d {}:{} {}".format(language, language, concept)
+        #query = "trans -no-auto -d {}:{} {}".format(language, language, concept)
+        query = "trans -d {}:{} {}".format(language, language, concept)
         #asdf = os.popen(query)
         translation = Popen(query, shell=True, stdout=PIPE).stdout.read().decode('utf8')
         tr = ParseTranslation(translation)
