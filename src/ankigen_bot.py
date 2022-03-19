@@ -58,6 +58,7 @@ def introduced_word(bot, update, lang, concept):
         bot.sendMessage(update.message.chat_id,
             text="Write one word only")
     else:
+        concept = concept.lower()
         defs = AnkiAutomatic(concept).retrieve_defs(lang.name)
         if defs is None:
             bot.sendMessage(update.message.chat_id,
@@ -304,8 +305,11 @@ def button_th(bot, update):
                 deck = db.get_deck_name(query.message.chat_id, spl)
                 tags =  db.get_tags(query.message.chat_id, spl)
             if deck is None:
-                deck = default_deck_name
-                tags = ""
+                bot.editMessageText(text="You need to specify the name of an existing deck with /deck".format(query.message.text),
+                    parse_mode='Markdown',
+                    chat_id=query.message.chat_id,
+                    message_id=query.message.message_id)
+                return
             bot.editMessageText(text="{}\n*Uploading card to your anki deck*".format(query.message.text),
                 parse_mode='Markdown',
                 chat_id=query.message.chat_id,
