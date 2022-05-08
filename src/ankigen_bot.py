@@ -156,10 +156,10 @@ def cardtype(bot, update):
         except:
             bot.sendMessage(update.message.chat_id, text="Sorry, something went wrong")
             return
-        bot.sendMessage(update.message.chat_id, text="Success! Card type was set back to default (Basic). Recall that sending /cardtype twice returns the cardtype to default.")
+        bot.sendMessage(update.message.chat_id, text="Success! Card type was set back to default (Basic).")
     else:
         bot.sendMessage(update.message.chat_id,
-                        text="(Advanced, optional) Send me the exact name of the card type you would want to use. Examples (copy by clicking/tapping):\n`Basic`\n`Basic (and reversed card)`\nSpaces and capitalization matters. Note that the two first fields of the card type are the ones that are going to be filled with a definition and a word, regardless of the card type\n\nDefault is Basic",
+                        text="(Advanced, optional) Send me the exact name of the card type you would want to use. Examples (copy by clicking/tapping):\n`Basic`\n`Basic (and reversed card)`\nSpaces and capitalization matters. Note that the two first fields of the card type are the ones that are going to be filled with a definition and a word, regardless of the card type\n\nDefault is Basic\n\nYou can send /cardtype again to reset it to default.",
                         parse_mode='Markdown')
         db.update_state(update.message.chat_id, State.set_card_type)
 
