@@ -65,7 +65,7 @@ def introduced_word(bot, update, lang, concept, def_lang=None, word_to_lang=None
                 text='No definitions found')
             return
         for definition in defs:
-            keyboard = [[InlineKeyboardButton("Add to anki", callback_data="{}|{}|0".format(lang.value, concept))],
+            keyboard = [[InlineKeyboardButton("Add to anki", callback_data="{}|{}".format(lang.value, concept))],
 
                      #InlineKeyboardButton("Cancel", callback_data='-1'),
                     #InlineKeyboardButton("test", switch_inline_query_current_chat="/asdf this is a test")]
@@ -485,12 +485,16 @@ def button_th(update, context):
                         message_id=query.message.message_id)
                     return
                 front = query.message.text
+                display_front = front
                 if '|' in query.data:
                     data = query.data.split('|', 2)
                     back = data[1]
                     if len(data) > 2:
-                        front = "|{}|\n{}".format(query.message.reply_markup.inline_keyboard[int(data[2])][0].text,
+                        display_front = "{}\n{}".format(query.message.reply_markup.inline_keyboard[int(data[2])][0].text,
                                                  front)
+                        front = "{}\n\n{}".format(query.message.reply_markup.inline_keyboard[int(data[2])][0].text,
+                                                 front)
+
                         #if front[0] == '(':
                         #    idx = front.find(')')
                         #    front = '{} ({}){}'.format(front[: idx+ 1 ], query.message.reply_markup.inline_keyboard[int(data[2])][0].text, front[idx + 1: ] )
@@ -505,8 +509,9 @@ def button_th(update, context):
 
                 if db.is_order_reversed(query.message.chat_id) == 1:  # Reverse if we have to
                     front, back = back, front
+                    display_front, back = back, display_front
                 context.bot.editMessageText(
-                    text="{}\n---\n{}\n*Uploading card to your anki deck*".format(front, back),
+                    text="{}\n---\n{}\n*Uploading card to your anki deck*".format(display_front, back),
                     parse_mode='Markdown',
                     chat_id=query.message.chat_id,
                     message_id=query.message.message_id)
@@ -537,7 +542,7 @@ def button_th(update, context):
                         message_id=query.message.message_id)
                 return
             context.bot.editMessageText(
-                    text="{}\n---\n{}\n{}".format(front, back, u"\u2705"),
+                    text="{}\n---\n{}\n{}".format(display_front, back, u"\u2705"),
                     chat_id=query.message.chat_id,
                     message_id=query.message.message_id)
         else:
