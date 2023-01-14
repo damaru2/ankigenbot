@@ -73,7 +73,11 @@ class AnkiGenDB:
         query = '''SELECT deck, language FROM deck_names
                     WHERE id_chat = ?
                     ORDER BY language ASC'''
-        return self.cur.execute(query, (id_chat,)).fetchall()
+        ret = self.cur.execute(query, (id_chat,)).fetchall()
+        if ret:
+            return [(str(deck), language) for deck, language in ret]
+        else:
+            return ret
 
     def get_all_def_langs(self, id_chat):
         query = '''SELECT def_lang, language FROM deck_names
@@ -91,7 +95,11 @@ class AnkiGenDB:
         query = '''SELECT tags, language FROM deck_names
                     WHERE id_chat = ?
                     ORDER BY language ASC'''
-        return self.cur.execute(query, (id_chat,)).fetchall()
+        ret = self.cur.execute(query, (id_chat,)).fetchall()
+        if ret:
+            return [(str(tag), language) for tag, language in ret]
+        else:
+            return ret
 
     def get_deck_name(self, id_chat, lang_code):
         query = '''SELECT deck FROM deck_names
@@ -100,7 +108,7 @@ class AnkiGenDB:
         if not ret:
             return None
         else:
-            return ret[0]
+            return str(ret[0])
 
     def get_tags(self, id_chat, lang_code):
         query = '''SELECT tags FROM deck_names

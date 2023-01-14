@@ -77,4 +77,5 @@ reg = re.compile(r'([\[_\*`])')
 
 
 def escape_markdown(text):
+    text = str(text)
     return re.sub(reg, r'\\\1', text)

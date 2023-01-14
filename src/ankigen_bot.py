@@ -198,7 +198,7 @@ def deck(update, context):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     deck_names = AnkiGenDB().get_all_deck_names(update.message.chat_id)
-    if deck_names is None:
+    if not deck_names:
         deck_names = ''
     else:
         deck_names = '\nCurrent deck names are:\n' + ''.join(['\n- *{}*: {}'.format(Languages(language).name, escape_markdown(deck_name) if deck_name else "") for deck_name, language in deck_names])
