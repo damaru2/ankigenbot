@@ -12,7 +12,7 @@ import time
 from private_conf import token_id
 from anki_cards_generator import AnkiAutomatic, language_translate_shell_codes
 from utils import to_ipa, escape_markdown
-from send_card import CardSender, NoDeckFoundError
+from send_card import CardSender, NoDeckFoundError, NoCardTypeFoundError
 from database import AnkiGenDB
 from enums import State, Languages, dict_state_to_lang, dict_state_to_lang_tags, supported_language_codes, dict_state_to_lang_defi, dict_state_to_lang_word
 

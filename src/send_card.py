@@ -35,9 +35,10 @@ class CardSender:
 
         self.driver.set_window_size(1920, 1080)
         self.driver.get(CardSender.url)
-        usr_box = self.driver.find_element_by_id('email')
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, '//input[@autocomplete="username"]')))
+        usr_box = self.driver.find_element_by_xpath('//input[@autocomplete="username"]')
         usr_box.send_keys(username)
-        pass_box = self.driver.find_element_by_id('password')
+        pass_box = self.driver.find_element_by_xpath('//input[@autocomplete="current-password"]')
         pass_box.send_keys('{}\n'.format(password))
         self.card_type = card_type
 
@@ -50,46 +51,46 @@ class CardSender:
                             '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
 
             # Wait for all the elements used to appear
-            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'models')))
-            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'deck')))
-            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'f0')))
-            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'f1')))
+            WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div/main/form/button')))
 
-            select = Select(self.driver.find_element_by_id('models'))
+            # This is the card type
+            type_elem = self.driver.find_element_by_xpath('/html/body/div/main/div[1]/div/div/div[2]/input')
+            type_elem.click()
             if self.card_type:
                 try:
-                    select.select_by_visible_text(self.card_type)
+                    type_elem.send_keys(self.card_type + '\n')
+                    if type_elem.get_attribute('value'): # It it was succesful the selectable returns empty string
+                        raise NoCardTypeFoundError(deck)
+                            # throw exception if there is nothing
                 except:
                     ret = 'The card type ```{}``` could not be found, so I am using the default Basic card type. Consider changing the /cardtype to the default value (by sending /cardtype twice) or to another card type that exists in your Anki'.format(self.card_type)
                     self.card_type = ""
 
             if not self.card_type:
                 # Card type = Basic
-                try:
-                    select.select_by_visible_text("Basic")
-                except:
-                    for option in select.options: #iterate over the options, place attribute value in list
-                        if "Basic" in option.text:
-                            select.select_by_visible_text(option.text)
-                            break
+                type_elem.send_keys("Basic\n")
+                # TODO click on the first one if there is no Basic although
+                # there should always be Basic, right?
 
             # Select deck type (previously we could write here)
-            try:
-                select = Select(self.driver.find_element_by_id('deck'))
-                select.select_by_visible_text(deck)
-            except NoSuchElementException:
+            deck_elem = self.driver.find_element_by_xpath('/html/body/div/main/div[2]/div/div/div[2]/input')
+            deck_elem.click()
+            deck_elem.send_keys(deck+'\n')
+            if deck_elem.get_attribute('value'): # It it was succesful the selectable returns empty string
                 raise NoDeckFoundError(deck)
 
             if tags:
-                self.driver.find_element_by_id('f-1').send_keys(tags)
+                self.driver.find_element_by_xpath(
+                    '/html/body/div/main/form/div[last()]/div/input').send_keys(tags)
 
             # Fill fields
-            self.driver.find_element_by_xpath('//*[@id="f0"]').send_keys(front)
-            self.driver.find_element_by_id('f1').send_keys(back)
+
+            self.driver.find_element_by_xpath('/html/body/div/main/form/div[1]/div/div').send_keys(front)
+            self.driver.find_element_by_xpath('/html/body/div/main/form/div[2]/div/div').send_keys(back)
 
             # Add
             self.driver.find_element_by_xpath(
-                    '/html/body/main/p/button').click()
+                    '/html/body/div/main/form/button').click()
         except:
             print(traceback.format_exc())
             if not os.path.isfile('screenshot_error.png'):
@@ -101,6 +102,10 @@ class CardSender:
 class NoDeckFoundError(Exception):
     def __init__(self, deck):
         self.deck = deck
+
+class NoCardTypeFoundError(Exception):
+    def __init__(self, card_type):
+        self.card_type = card_type
 
 if __name__ == "__main__":
     cs = CardSender('aaa@gmail.com', 'mypassword')
