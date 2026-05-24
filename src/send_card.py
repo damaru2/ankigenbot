@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -6,6 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
 from private_conf import chrome_binary_location
+try:
+    from private_conf import chromedriver_path
+except ImportError:
+    chromedriver_path = None
 
 import time
 import traceback
@@ -31,14 +36,22 @@ class CardSender:
 
         options.binary_location = chrome_binary_location
 
-        self.driver = webdriver.Chrome(chrome_options=options)
+        if chromedriver_path:
+            service = Service(executable_path=chromedriver_path)
+        else:
+            # Selenium Manager otherwise prefers even stale chromedrivers on PATH.
+            os.environ.setdefault("SE_SKIP_DRIVER_IN_PATH", "true")
+            os.environ.setdefault("SE_AVOID_STATS", "true")
+            service = Service()
+
+        self.driver = webdriver.Chrome(service=service, options=options)
 
         self.driver.set_window_size(1920, 1080)
         self.driver.get(CardSender.url)
         WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, '//input[@autocomplete="username"]')))
-        usr_box = self.driver.find_element_by_xpath('//input[@autocomplete="username"]')
+        usr_box = self.driver.find_element(By.XPATH, '//input[@autocomplete="username"]')
         usr_box.send_keys(username)
-        pass_box = self.driver.find_element_by_xpath('//input[@autocomplete="current-password"]')
+        pass_box = self.driver.find_element(By.XPATH, '//input[@autocomplete="current-password"]')
         pass_box.send_keys('{}\n'.format(password))
         self.card_type = card_type
 
@@ -47,14 +60,14 @@ class CardSender:
         try:
             # Click on the "Add" tab
             WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a')))
-            self.driver.find_element_by_xpath(
-                            '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
+            self.driver.find_element(
+                            By.XPATH, '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a').click()
 
             # Wait for all the elements used to appear
             WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div/main/form/button')))
 
             # This is the card type
-            type_elem = self.driver.find_element_by_xpath('/html/body/div/main/div[1]/div/div/div[2]/input')
+            type_elem = self.driver.find_element(By.XPATH, '/html/body/div/main/div[1]/div/div/div[2]/input')
             type_elem.click()
             if self.card_type:
                 try:
@@ -73,24 +86,24 @@ class CardSender:
                 # there should always be Basic, right?
 
             # Select deck type (previously we could write here)
-            deck_elem = self.driver.find_element_by_xpath('/html/body/div/main/div[2]/div/div/div[2]/input')
+            deck_elem = self.driver.find_element(By.XPATH, '/html/body/div/main/div[2]/div/div/div[2]/input')
             deck_elem.click()
             deck_elem.send_keys(deck+'\n')
             if deck_elem.get_attribute('value'): # It it was succesful the selectable returns empty string
                 raise NoDeckFoundError(deck)
 
             if tags:
-                self.driver.find_element_by_xpath(
-                    '/html/body/div/main/form/div[last()]/div/input').send_keys(tags)
+                self.driver.find_element(
+                    By.XPATH, '/html/body/div/main/form/div[last()]/div/input').send_keys(tags)
 
             # Fill fields
 
-            self.driver.find_element_by_xpath('/html/body/div/main/form/div[1]/div/div').send_keys(front)
-            self.driver.find_element_by_xpath('/html/body/div/main/form/div[2]/div/div').send_keys(back)
+            self.driver.find_element(By.XPATH, '/html/body/div/main/form/div[1]/div/div').send_keys(front)
+            self.driver.find_element(By.XPATH, '/html/body/div/main/form/div[2]/div/div').send_keys(back)
 
             # Add
-            self.driver.find_element_by_xpath(
-                    '/html/body/div/main/form/button').click()
+            self.driver.find_element(
+                    By.XPATH, '/html/body/div/main/form/button').click()
         except:
             print(traceback.format_exc())
             if not os.path.isfile('screenshot_error.png'):
